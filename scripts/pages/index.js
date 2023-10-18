@@ -5,7 +5,10 @@
         const url = 'data/photographers.json';
         fetch(url)
         .then(res => res.json())
-        .then(data => data.photographers);
+        .then(data =>  {
+          photographers = data.photographers;
+          console.log(photographers);
+        });
 
 
         // et bien retourner le tableau photographers seulement une fois récupéré
