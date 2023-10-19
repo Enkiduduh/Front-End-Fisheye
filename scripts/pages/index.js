@@ -5,9 +5,8 @@
       alert("HTTP-Error: " + response.status);
     } else {
       let data = await response.json();
-      console.log(data);
       let photographers = data.photographers;
-      console.log(photographers);
+      // console.log(photographers);
       return {
         photographers: [...photographers]
     };
@@ -30,3 +29,31 @@
     }
 
     init();
+
+async function verif() {
+ // Récupère les datas des photographes
+    const { photographers } = await getPhotographers();
+    photographers.forEach((photographer) => {
+        const photographerId = photographer.id;
+        console.log(photographerId)
+        })
+      }
+      verif();
+
+  async function clickOnPortrait () {
+    const { photographers } = await getPhotographers();
+    const imgArray = document.querySelectorAll("img")
+    console.log(imgArray)
+    imgArray.forEach(img => {
+      img.addEventListener("click", () => {
+        photographers.forEach((photographer) => {
+          const photographerId = photographer.id;
+          console.log("bonjour");
+          window.location.href = `photographer.html?id=${photographerId}`;
+          console.log("bonjour2");
+        })
+      })
+    });
+
+  }
+  clickOnPortrait();
