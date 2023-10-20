@@ -30,15 +30,15 @@
 
     init();
 
-async function verif() {
- // Récupère les datas des photographes
-    const { photographers } = await getPhotographers();
-    photographers.forEach((photographer) => {
-        const photographerId = photographer.id;
-        console.log(photographerId)
-        })
-      }
-      verif();
+  async function verif() {
+  // Récupère les datas des photographes
+      const { photographers } = await getPhotographers();
+      photographers.forEach((photographer) => {
+          const photographerId = photographer.id;
+          console.log(photographerId)
+          })
+        }
+        verif();
 
   async function clickOnPortrait () {
     const { photographers } = await getPhotographers();
@@ -47,13 +47,22 @@ async function verif() {
     imgArray.forEach(img => {
       img.addEventListener("click", () => {
         photographers.forEach((photographer) => {
-          const photographerId = photographer.id;
-          console.log("bonjour");
+          const photographerId = img.id;
           window.location.href = `photographer.html?id=${photographerId}`;
-          console.log("bonjour2");
+          console.log("test");
         })
       })
     });
 
   }
   clickOnPortrait();
+
+async function storageData () {
+  const { photographers } = await getPhotographers();
+  const photographerRecall = { photographers };
+  const photoTest = {"perso1" :"mario", "perso2": "luigi", "perso3": "peach"};
+  localStorage.setItem("dataPhotographer", photographerRecall);
+  localStorage.setItem("data", photoTest);
+  console.log("Data saved");
+}
+storageData();
