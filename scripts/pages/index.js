@@ -59,10 +59,10 @@
 
 async function storageData () {
   const { photographers } = await getPhotographers();
-  const photographerRecall = { photographers };
-  const photoTest = {"perso1" :"mario", "perso2": "luigi", "perso3": "peach"};
-  localStorage.setItem("dataPhotographer", photographerRecall);
-  localStorage.setItem("data", photoTest);
-  console.log("Data saved");
+  const photographersDataSaved = { photographers };
+
+  const dataStringified = JSON.stringify(photographersDataSaved);
+
+  localStorage.setItem("dataPhotographers", dataStringified);
 }
 storageData();
