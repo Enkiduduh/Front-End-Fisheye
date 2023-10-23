@@ -41,9 +41,6 @@ function checkPhotographerId () {
           <div>
             <span>Nombre de like: icn coeur ${photographersData[i].price}€ / jour</span>
           </div>`;
-
-
-
           // const photographerHeaderSection = document.querySelector(".photograph-header");
           // const div = document.createElement("div");
           // div.setAttribute("class", "info-photographer");
@@ -70,9 +67,6 @@ function checkPhotographerId () {
           // photographerHeaderSection.appendChild(img)
           // photographerHeaderSection.appendChild(buttonContact)
           // console.log("F")
-
-
-
         }
     }
 }
