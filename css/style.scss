@@ -77,3 +77,35 @@ h1 {
       margin: 0 auto;
     }
 }
+
+.photograph-header {
+    justify-self: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+  h1 {
+    color: $primary_color_2_font;
+    font-size: 50px;
+    margin: 0;
+  }
+  .p1 {
+    color: $secondary_color_3_font;
+    margin: 10px auto;
+    font-size: 24px;
+    }
+  .p2 {
+    color: $secondary_color_2_font;
+    margin: 15px auto;
+    font-size: 18px;
+  }
+  .info-photographer {
+    margin: 0 auto;
+  }
+}

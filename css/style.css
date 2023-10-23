@@ -65,4 +65,37 @@ h1 {
   -o-object-fit: cover;
      object-fit: cover;
   margin: 0 auto;
+}
+
+.photograph-header {
+  justify-self: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.photograph-header img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 0 auto;
+}
+.photograph-header h1 {
+  color: #D3573C;
+  font-size: 50px;
+  margin: 0;
+}
+.photograph-header .p1 {
+  color: #901C1C;
+  margin: 10px auto;
+  font-size: 24px;
+}
+.photograph-header .p2 {
+  color: #525252;
+  margin: 15px auto;
+  font-size: 18px;
+}
+.photograph-header .info-photographer {
+  margin: 0 auto;
 }/*# sourceMappingURL=style.css.map */

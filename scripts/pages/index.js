@@ -1,3 +1,6 @@
+
+// let photographerList = [];
+
   async function getPhotographers() {
     let response = await fetch('data/photographers.json');
 
@@ -7,10 +10,13 @@
       let data = await response.json();
       let photographers = data.photographers;
       console.log(photographers);
+      // photographerList = [...photographers];
+      // console.log(photographerList[1].name)
       return {
         photographers: [...photographers]
     };
   }}
+
 
     async function displayData(photographers) {
         const photographersSection = document.querySelector(".photographer_section");
@@ -37,7 +43,7 @@
       // console.log(photographers[4].portrait)
       photographers.forEach((photographer) => {
           const photographerId = photographer.id;
-          console.log(photographerId)
+          // console.log(photographerId)
           })
         }
         verif();
@@ -46,7 +52,7 @@
     const { photographers } = await getPhotographers();
     const dataStringified = JSON.stringify(photographers);
     const imgArray = document.querySelectorAll("img")
-    console.log(imgArray)
+    // console.log(imgArray)
     imgArray.forEach(img => {
       img.addEventListener("click", () => {
         photographers.forEach((photographer) => {
@@ -59,7 +65,7 @@
           // const pgrPortrait = photographer.portrait;
           window.location.href = `photographer.html?id=${pgrId}`;
           // window.location.href = `photographer.html?id=${pgrId}&name=${pgrName}&city=${pgrCity}&country=${pgrCountry}&tagline=${pgrTagline}&price=${pgrPrice}&portrait=${pgrPortrait}`;
-          console.log("changement de page test");
+          // console.log("changement de page test");
         })
       })
     });
