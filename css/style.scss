@@ -13,6 +13,7 @@ $margin_0_auto: 0 auto;
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
 
@@ -47,6 +48,37 @@ textarea {
   border: transparent;
 }
 
+#photographer_gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  margin: 50px 70px;
+  img {
+    width: 250px;
+    height: 250px;
+    border-radius: 5px;
+  }
+  .gallery_card {
+    width: 250px;
+  }
+  .card_info {
+    display: flex;
+    align-items: center;
+    margin:0;
+    h3 {
+      margin:0 10px 0 0;
+      width: 80%;
+      color: $secondary_color_3_font;
+      font-size: 18px;
+    }
+    span {
+      margin-left: 70px;
+    }
+  }
+}
+.display-none {
+  display:none;
+}
 .photographer_section article {
     justify-self: center;
     display: flex;

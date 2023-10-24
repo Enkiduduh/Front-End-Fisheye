@@ -2,6 +2,7 @@
 body {
   font-family: "DM Sans", sans-serif;
   margin: 0;
+  overflow-x: hidden;
 }
 
 header {
@@ -34,6 +35,39 @@ textarea {
   width: 100%;
   border-radius: 7px;
   border: transparent;
+}
+
+#photographer_gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  margin: 50px 70px;
+}
+#photographer_gallery img {
+  width: 250px;
+  height: 250px;
+  border-radius: 5px;
+}
+#photographer_gallery .gallery_card {
+  width: 250px;
+}
+#photographer_gallery .card_info {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+#photographer_gallery .card_info h3 {
+  margin: 0 10px 0 0;
+  width: 80%;
+  color: #901C1C;
+  font-size: 18px;
+}
+#photographer_gallery .card_info span {
+  margin-left: 70px;
+}
+
+.display-none {
+  display: none;
 }
 
 .photographer_section article {

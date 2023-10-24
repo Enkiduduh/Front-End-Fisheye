@@ -16,12 +16,24 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
     </main>
+    <!-- Remettre en ordre le main -->
+    <div id="filter-containter"></div>
+    <section id="photographer_gallery">
+      <div class="gallery_card">
+        <img src="" alt="">
+        <div class="card_info">
+          <h3></h3>
+          <span></span>
+          <i></i>
+        </div>
+      </div>
+    </section>
     <div id="contact_modal">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
           <h2 class=""></h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" onclick="closeModal()" id="close-modal"/>
         </header>
 				<form>
 					<div>
@@ -39,8 +51,7 @@
 			</div>
 		</div>
     <div><a href="index.html">Retour à l'index</a></div>
-    <script src="scripts/pages/index.js" async> </script>
-    <script src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/pages/photographer.js" async></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
 </html>
