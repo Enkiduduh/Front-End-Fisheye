@@ -60,9 +60,12 @@ textarea {
   list-style-type: none;
   margin: 0;
   padding-left: 10px;
-  border-radius: 5px;
+}
+#filter-containter #filter .filter-display-none {
+  display: none;
 }
 #filter-containter #filter .filter-list {
+  border-radius: 5px;
   display: flex;
   align-items: center;
   background: #901C1C;

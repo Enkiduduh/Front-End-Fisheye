@@ -69,8 +69,11 @@ left: 950px;
     list-style-type: none;
     margin: 0;
     padding-left: 10px;
-    border-radius: 5px;
+    .filter-display-none {
+      display: none;
+    }
     .filter-list {
+      border-radius: 5px;
       display: flex;
       align-items: center;
       background: $primary_color_1_bg;

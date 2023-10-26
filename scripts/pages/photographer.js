@@ -14,9 +14,17 @@ console.log(currentPhotographer[0].name)
 const closeModalBtn = document.getElementById("close-modal");
 const modal = document.getElementById("contact_modal");
 
+
+function sumTab (array) {
+  const sum = (accumulator, value) => accumulator + value;
+  const initialValue = 0;
+  sumResult = array.reduce(sum, initialValue);
+  return (sumResult);
+}
+
 const photographersIdArray = [243,930,82,527,925,195];
 console.log(id)
-
+let sumResult = 0;
 async function getMedia() {
   let response = await fetch('data/photographers.json');
   if (!response.ok) {
@@ -43,7 +51,6 @@ function checkPhotographerId () {
           console.log(`id:${id}`)
           console.log(photographersData[i].name)
           const mainHeadId = document.getElementById ("main-head");
-          const nbLikesPrices = document.getElementById("nb_likes_prices");
           mainHeadId.innerHTML =
           `<div class="photograph-header">
           <div class="info-photographer">
@@ -52,40 +59,44 @@ function checkPhotographerId () {
           <p class="p2">${photographersData[i].tagline}</p>
           </div>
           <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-              <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait of the artist Tracy Galindo">
+          <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait of the artist Tracy Galindo">
           </div>`;
-          nbLikesPrices.innerHTML =`Nombre de like <i class="fa-solid fa-heart"></i> ${photographersData[i].price}€ / jour`;
           getMedia();
         }
       }
     }
 
-checkPhotographerId()
+    checkPhotographerId()
 
 
-async function displayMediaWithPhotographerId () {
-  const { media } = await getMedia();
-  for (let x = 0; x< photographersIdArray.length; x++) {
-    if (photographersIdArray[x] == id) {
-      let mediaFiltered = media.filter(m => m.photographerId == id)
-      const photographer_gallery = document.getElementById ("photographer_gallery");
-      console.log(mediaFiltered.length)
-      for (let i = 0; i < mediaFiltered.length; i++) {
-        const galleryCard = document.createElement("div");
-        galleryCard.classList.add("gallery_card");
-        galleryCard.innerHTML =
-        `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
-        <div class="card_info">
-        <h3>${mediaFiltered[i].title}</h3>
-        <span>${mediaFiltered[i].likes}</span>
-        <i class="fa-solid fa-heart"></i>
-        </div>`;
-        photographer_gallery.appendChild(galleryCard);
+    async function displayMediaWithPhotographerId () {
+      const { media } = await getMedia();
+      for (let x = 0; x< photographersIdArray.length; x++) {
+        if (photographersIdArray[x] == id) {
+          let mediaFiltered = media.filter(m => m.photographerId == id)
+          const photographer_gallery = document.getElementById ("photographer_gallery");
+          console.log(mediaFiltered.length)
+          const sommeNbLikes = [];
+          for (let i = 0; i < mediaFiltered.length; i++) {
+            const galleryCard = document.createElement("div");
+            galleryCard.classList.add("gallery_card");
+            galleryCard.innerHTML =
+            `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+            <div class="card_info">
+            <h3>${mediaFiltered[i].title}</h3>
+            <span>${mediaFiltered[i].likes}</span>
+            <i class="fa-solid fa-heart"></i>
+            </div>`;
+            photographer_gallery.appendChild(galleryCard);
+            // sommeNbLikes = sommeNbLikes + mediaFiltered[i].likes;
+            sommeNbLikes.push(mediaFiltered[i].likes);
+          }
+          sumTab(sommeNbLikes);
+          const nbLikesPrices = document.getElementById("nb_likes_prices");
+          nbLikesPrices.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i> ${photographersData[x].price}€ / jour`;
+        }
       }
     }
-  }
-}
 
 
-
-displayMediaWithPhotographerId()
+    displayMediaWithPhotographerId()
