@@ -37,33 +37,75 @@ textarea {
   border: transparent;
 }
 
+#nb_likes_prices {
+  position: sticky;
+  background: #D3573C;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 10px;
+  bottom: 0px;
+  left: 950px;
+}
+
+#filter-containter {
+  display: flex;
+  margin-left: 100px;
+}
+#filter-containter span {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 11px;
+}
+#filter-containter #filter {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+#filter-containter #filter .filter-list {
+  display: flex;
+  align-items: center;
+  background: #901C1C;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 50px;
+  border: none;
+}
+
 #photographer_gallery {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 100px;
   gap: 30px;
-  margin: 50px 70px;
 }
 #photographer_gallery img {
-  width: 250px;
-  height: 250px;
+  width: 280px;
+  height: 280px;
   border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 #photographer_gallery .gallery_card {
-  width: 250px;
+  width: 280px;
+  margin: 0 auto;
 }
 #photographer_gallery .card_info {
   display: flex;
   align-items: center;
   margin: 0;
+  color: #901C1C;
 }
 #photographer_gallery .card_info h3 {
   margin: 0 10px 0 0;
-  width: 80%;
-  color: #901C1C;
-  font-size: 18px;
+  width: 180px;
+  font-size: 14px;
 }
 #photographer_gallery .card_info span {
-  margin-left: 70px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .display-none {

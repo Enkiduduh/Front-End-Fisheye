@@ -42,8 +42,9 @@ function checkPhotographerId () {
           const photographerPortrait = `assets/photographers/${photographersData[i].portrait}`;
           console.log(`id:${id}`)
           console.log(photographersData[i].name)
-          const mainId = document.getElementById ("main");
-          mainId.innerHTML =
+          const mainHeadId = document.getElementById ("main-head");
+          const nbLikesPrices = document.getElementById("nb_likes_prices");
+          mainHeadId.innerHTML =
           `<div class="photograph-header">
           <div class="info-photographer">
           <h1>${photographersData[i].name}</h1>
@@ -52,19 +53,17 @@ function checkPhotographerId () {
           </div>
           <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
               <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait of the artist Tracy Galindo">
-          </div>
-          <div>
-            <span>Nombre de like: coeur ${photographersData[i].price}€ / jour</span>
           </div>`;
+          nbLikesPrices.innerHTML =`Nombre de like <i class="fa-solid fa-heart"></i> ${photographersData[i].price}€ / jour`;
           getMedia();
         }
+      }
     }
-}
 
 checkPhotographerId()
 
 
-async function verifyMediaIdWithPhotographerId () {
+async function displayMediaWithPhotographerId () {
   const { media } = await getMedia();
   for (let x = 0; x< photographersIdArray.length; x++) {
     if (photographersIdArray[x] == id) {
@@ -79,7 +78,7 @@ async function verifyMediaIdWithPhotographerId () {
         <div class="card_info">
         <h3>${mediaFiltered[i].title}</h3>
         <span>${mediaFiltered[i].likes}</span>
-        <i>coeur</i>
+        <i class="fa-solid fa-heart"></i>
         </div>`;
         photographer_gallery.appendChild(galleryCard);
       }
@@ -88,21 +87,5 @@ async function verifyMediaIdWithPhotographerId () {
 }
 
 
-// const sourceImg = `assets/images/${photographersData[x].name}/${mediaFiltered[i].image}`;
-// const img = document.createElement( 'img' );
-// img.setAttribute("src", sourceImg);
-// img.setAttribute("alt", `${mediaFiltered[i].title}`);
 
-verifyMediaIdWithPhotographerId()
-// photographer_gallery.innerHTML =
-// `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"
-//  alt="${mediaFiltered[i].title}">`;
-// galleryCard.innerHTML =
-// `<div class="gallery_card">
-//   <img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
-//   <div class="card_info">
-//     <h3>${mediaFiltered[i].title}</h3>
-//     <span>${mediaFiltered[i].likes}</span>
-//     <i>coeur</i>
-//   </div>
-// </div>`;
+displayMediaWithPhotographerId()
