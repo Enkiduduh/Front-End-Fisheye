@@ -112,16 +112,42 @@ function displayImgInModal () {
     const modalImage = document.getElementById("modal_image");
     const caption = document.getElementById("caption");
     const closeModalBtn = document.getElementById("close_modal");
+    const leftArrow = document.getElementById("left-arrow");
+    const rightArrow = document.getElementById("right-arrow");
 
-    images.forEach(image => {
+    let currentIndex = 0; // Index de l'image actuellement affichée
+
+    images.forEach((image, index) => {
       image.addEventListener("click", function(){
         modal.style.display = "flex"; // Afficher la modal
-        modalImage.src = image.src; // Afficher l'image cliquée dans la modal
-        caption.innerHTML = image.title; // Utiliser le texte alternatif comme légende
+        currentIndex = index; // Mettre à jour l'index de l'image actuelle
+        currentImageDisplay();
+
+
         // Gérer la fermeture de la modal lorsque l'utilisateur clique sur le bouton de fermeture
         closeModalBtn.addEventListener("click", function() {
           modal.style.display = "none"; // Cacher la modal
-      })
+        });
+        leftArrow.addEventListener("click", previousImageDisplay); // Afficher l'image précédente dans la modal
+        rightArrow.addEventListener("click", nextImageDisplay); // Afficher l'image suivante dans la modal
+
     });
   });
-}
+    function currentImageDisplay() {
+      modalImage.src = images[currentIndex].src;// Afficher l'image cliquée dans la modal
+      caption.innerHTML = images[currentIndex].title; // Utiliser le texte alternatif comme légende
+    }
+
+    function previousImageDisplay () {
+      if (currentIndex < images.length - 1) {
+        currentIndex++;
+        currentImageDisplay();
+      }
+    }
+    function nextImageDisplay () {
+      if (currentIndex > 0) {
+        currentIndex--;
+        currentImageDisplay();
+      }
+    }
+  }
