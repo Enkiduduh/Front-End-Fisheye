@@ -226,6 +226,28 @@ textarea {
   left: 30%;
 }
 
+#display_modal {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  width: 800px;
+  height: 500px;
+  margin: 0 auto;
+}
+#display_modal #modal_image {
+  width: 650px;
+  height: 500px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 5px;
+}
+#display_modal .arrow {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .modal {
   border-radius: 5px;
   background-color: #DB8876;

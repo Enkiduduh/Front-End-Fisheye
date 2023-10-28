@@ -11,6 +11,8 @@ const photographersData = JSON.parse(photographersRecall);
 // let currentPhotographer = photographersData.filter(p => p.id == id)
 // console.log(currentPhotographer[0].name)
 
+let mediaList = [];
+
 const closeModalBtn = document.getElementById("close-modal");
 const modal = document.getElementById("contact_modal");
 
@@ -33,8 +35,9 @@ async function getMedia() {
       let data = await response.json();
       let media = data.media;
       mediaList = [...media];
+      console.log(mediaList)
       return {
-          media: [...media],
+          media: [...media]
         };
       }
     }
@@ -75,22 +78,23 @@ function checkPhotographerId () {
         if (photographersIdArray[x] == id) {
           let mediaFiltered = media.filter(m => m.photographerId == id)
           const photographer_gallery = document.getElementById ("photographer_gallery");
-          console.log(mediaFiltered.length)
+          console.log(mediaFiltered)
           const sommeNbLikes = [];
           for (let i = 0; i < mediaFiltered.length; i++) {
             const galleryCard = document.createElement("div");
             galleryCard.classList.add("gallery_card");
             galleryCard.innerHTML =
-            `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+            `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_image" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
             <div class="card_info">
             <h3>${mediaFiltered[i].title}</h3>
             <div>
-              <span>${mediaFiltered[i].likes}</span>
-              <i class="fa-solid fa-heart"></i>
+            <span>${mediaFiltered[i].likes}</span>
+            <i class="fa-solid fa-heart"></i>
             </div>
             </div>`;
             photographer_gallery.appendChild(galleryCard);
             sommeNbLikes.push(mediaFiltered[i].likes);
+            displayImgInModal ()
           }
           sumTab(sommeNbLikes);
           const nbLikes = document.getElementById("nb_likes");
@@ -100,5 +104,24 @@ function checkPhotographerId () {
         }
       }
     }
-
     displayMediaWithPhotographerId()
+
+function displayImgInModal () {
+    const images = document.querySelectorAll(".gallery_image");
+    const modal = document.getElementById("display_modal");
+    const modalImage = document.getElementById("modal_image");
+    const caption = document.getElementById("caption");
+    const closeModalBtn = document.getElementById("close_modal");
+
+    images.forEach(image => {
+      image.addEventListener("click", function(){
+        modal.style.display = "flex"; // Afficher la modal
+        modalImage.src = image.src; // Afficher l'image cliquée dans la modal
+        caption.innerHTML = image.title; // Utiliser le texte alternatif comme légende
+        // Gérer la fermeture de la modal lorsque l'utilisateur clique sur le bouton de fermeture
+        closeModalBtn.addEventListener("click", function() {
+          modal.style.display = "none"; // Cacher la modal
+      })
+    });
+  });
+}
