@@ -8,8 +8,8 @@ const id = parseInt(params.get("id"))   //phId
 const photographersRecall = localStorage.getItem("dataPhotographers");
 const photographersData = JSON.parse(photographersRecall);
 
-let currentPhotographer = photographersData.filter(p => p.id == id)
-console.log(currentPhotographer[0].name)
+// let currentPhotographer = photographersData.filter(p => p.id == id)
+// console.log(currentPhotographer[0].name)
 
 const closeModalBtn = document.getElementById("close-modal");
 const modal = document.getElementById("contact_modal");
@@ -84,19 +84,21 @@ function checkPhotographerId () {
             `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
             <div class="card_info">
             <h3>${mediaFiltered[i].title}</h3>
-            <span>${mediaFiltered[i].likes}</span>
-            <i class="fa-solid fa-heart"></i>
+            <div>
+              <span>${mediaFiltered[i].likes}</span>
+              <i class="fa-solid fa-heart"></i>
+            </div>
             </div>`;
             photographer_gallery.appendChild(galleryCard);
-            // sommeNbLikes = sommeNbLikes + mediaFiltered[i].likes;
             sommeNbLikes.push(mediaFiltered[i].likes);
           }
           sumTab(sommeNbLikes);
-          const nbLikesPrices = document.getElementById("nb_likes_prices");
-          nbLikesPrices.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i> ${photographersData[x].price}€ / jour`;
+          const nbLikes = document.getElementById("nb_likes");
+          nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
+          const price = document.getElementById("price");
+          price.innerHTML =`${photographersData[x].price}€ / jour`;
         }
       }
     }
-
 
     displayMediaWithPhotographerId()

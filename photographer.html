@@ -19,38 +19,37 @@
       </div>
       <!-- Remettre en ordre le main -->
     </div>
+
     <div id="filter-containter">
-<!-- <form>
-    <label for="filter-select">Trier par</label>
-    <select name="filters" id="filter-select">
-      <option value="popularite">Popularité</option>
-      <option value="date">Date</option>
-      <option value="likes">Likes</option>
-</form> -->
-      <span>Trier par</span>
+      <label for="filter">Trier par</label>
+      <select name="filters" id="filter">
+        <option value="popularite" class="filter-list">Popularité</option>
+        <option value="date" class="filter-list">Date</option>
+        <option value="likes" class="filter-list">Likes</option>
+      </select>
+
+        <!-- <span>Trier par</span>
       <div id="filter">
-        <div class="filter-list">Popularité</div>
-        <div class="filter-display-none">Date</div>
-        <div class="filter-display-none">Titre</div>
-      </div>
+          <div class="filter-list">Popularité</div>
+          <div class="filter-display-none">Date</div>
+          <div class="filter-display-none">Titre</div>
+      </div> -->
+
     </div>
+
     <section id="photographer_gallery">
-      <div class="gallery_card">
-        <img src="" alt="">
-        <div class="card_info">
-          <h3></h3>
-          <span></span>
-          <i></i>
         </div>
       </div>
     </section>
     <div id="contact_modal">
 			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <h2 class=""></h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" id="close-modal"/>
-        </header>
+				<div class="modal-title">
+          <div class="h_title">
+            <h2>Contactez-moi</h2>
+            <img src="assets/icons/close.svg" onclick="closeModal()" id="close-modal"/>
+          </div>
+          <h2 class="waiting">Mimi Keel test</h2>
+        </div>
 				<form>
 					<div>
 						<label>Prénom</label>
@@ -60,13 +59,15 @@
             <label>Email</label>
 						<input />
             <label>Votre message</label>
-            <textarea name="yourmessage" rows="6" cols="70"></textarea>
+            <textarea name="yourmessage" rows="4" cols="70"></textarea>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    <span id="nb_likes_prices"></span>
+    <div class="footer-sticky">
+      <span id="nb_likes"></span><span id="price"></span>
+    </div>
   </main>
     <div><a href="index.html">Retour à l'index</a></div>
     <script src="/scripts/pages/photographer.js" async></script>
