@@ -72,10 +72,26 @@ justify-content: space-between;
     font-weight: bold;
     padding: 11px;
   }
+  #label-filter {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
   #filter {
     list-style-type: none;
-    margin: 0;
-    padding-left: 10px;
+    margin-left : 10px;
+    background: $primary_color_1_bg;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
 
     .filter-display-none {
       display: none;
@@ -223,6 +239,10 @@ justify-content: space-between;
   background-color: #901C1C;
   border-radius: 5px;
   cursor: pointer;
+  &:hover {
+    color: black;
+    background:$secondary_color_1_bg;
+  }
 }
 #contact_modal {
   z-index: 2;
@@ -233,13 +253,25 @@ justify-content: space-between;
 }
 #display_modal {
   z-index: 2;
-  display: flex;
+  display: none;
   justify-content: center;
   width: 800px;
   height: 500px;
-
-
   margin: 0 auto;
+  i {
+    font-size: 28px;
+    color : $secondary_color_3_font;
+  }
+  #caption {
+    color : $secondary_color_3_font;
+    font-weight: bold;
+  }
+  #close_modal_display{
+    position: relative;
+    top: 0px;
+    right: 35px;
+    height: 30px;
+  }
   #modal_image {
     width: 650px;
     height: 500px;

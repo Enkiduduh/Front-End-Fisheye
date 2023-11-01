@@ -64,10 +64,26 @@ textarea {
   font-weight: bold;
   padding: 11px;
 }
+#filter-containter #label-filter {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
 #filter-containter #filter {
   list-style-type: none;
-  margin: 0;
-  padding-left: 10px;
+  margin-left: 10px;
+  background: #901C1C;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  padding: 11px;
+  width: 170px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 #filter-containter #filter .filter-display-none {
   display: none;
@@ -217,6 +233,10 @@ textarea {
   border-radius: 5px;
   cursor: pointer;
 }
+.contact_button:hover {
+  color: black;
+  background: #D3573C;
+}
 
 #contact_modal {
   z-index: 2;
@@ -228,11 +248,25 @@ textarea {
 
 #display_modal {
   z-index: 2;
-  display: flex;
+  display: none;
   justify-content: center;
   width: 800px;
   height: 500px;
   margin: 0 auto;
+}
+#display_modal i {
+  font-size: 28px;
+  color: #901C1C;
+}
+#display_modal #caption {
+  color: #901C1C;
+  font-weight: bold;
+}
+#display_modal #close_modal_display {
+  position: relative;
+  top: 0px;
+  right: 35px;
+  height: 30px;
 }
 #display_modal #modal_image {
   width: 650px;

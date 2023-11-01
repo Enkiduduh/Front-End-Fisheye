@@ -1,6 +1,8 @@
 //Mettre le code JavaScript lié à la page photographer.html
-// console.log(photographerList)
 // console.log(photographerList[1].name)
+
+
+
 
 const params = new URL(document.location).searchParams;
 const id = parseInt(params.get("id"))   //phId
@@ -9,7 +11,7 @@ const photographersRecall = localStorage.getItem("dataPhotographers");
 const photographersData = JSON.parse(photographersRecall);
 
 // let currentPhotographer = photographersData.filter(p => p.id == id)
-// console.log(currentPhotographer[0].name)
+// console.log(currentPhotographer)
 
 let mediaList = [];
 
@@ -35,12 +37,21 @@ async function getMedia() {
       let data = await response.json();
       let media = data.media;
       mediaList = [...media];
-      console.log(mediaList)
       return {
           media: [...media]
         };
       }
     }
+
+    function immediateMedia () {
+    getMedia()
+    .then(() => {
+      console.log(mediaList);
+      console.log(mediaList[2].title);
+
+    })
+  }
+  immediateMedia()
 
 function checkPhotographerId () {
     for (let i = 0; i< photographersIdArray.length; i++) {
@@ -107,15 +118,17 @@ function checkPhotographerId () {
     displayMediaWithPhotographerId()
 
 function displayImgInModal () {
+    const main = document.getElementById("main-container");
     const images = document.querySelectorAll(".gallery_image");
     const modal = document.getElementById("display_modal");
     const modalImage = document.getElementById("modal_image");
     const caption = document.getElementById("caption");
-    const closeModalBtn = document.getElementById("close_modal");
+    const closeModalBtn = document.getElementById("close_modal_display");
     const leftArrow = document.getElementById("left-arrow");
     const rightArrow = document.getElementById("right-arrow");
 
     let currentIndex = 0; // Index de l'image actuellement affichée
+
 
     images.forEach((image, index) => {
       image.addEventListener("click", function(){
@@ -123,28 +136,34 @@ function displayImgInModal () {
         currentIndex = index; // Mettre à jour l'index de l'image actuelle
         currentImageDisplay();
 
-
         // Gérer la fermeture de la modal lorsque l'utilisateur clique sur le bouton de fermeture
         closeModalBtn.addEventListener("click", function() {
           modal.style.display = "none"; // Cacher la modal
         });
         leftArrow.addEventListener("click", previousImageDisplay); // Afficher l'image précédente dans la modal
         rightArrow.addEventListener("click", nextImageDisplay); // Afficher l'image suivante dans la modal
-
     });
   });
     function currentImageDisplay() {
-      modalImage.src = images[currentIndex].src;// Afficher l'image cliquée dans la modal
-      caption.innerHTML = images[currentIndex].title; // Utiliser le texte alternatif comme légende
+      const chemin = images[currentIndex].alt;
+      const regExp = /\/([^/]+)$/;
+      const match = chemin.match(regExp);
+      if (match) {
+        const dernierePartie = match[1];
+        caption.innerHTML = dernierePartie;
+        modalImage.src = images[currentIndex].src;// Afficher l'image cliquée dans la modal
+      }
+      // caption.innerHTML = images[currentIndex].alt; // Utiliser le titre comme légende
+      // console.log(images[currentIndex])
     }
 
-    function previousImageDisplay () {
+    function nextImageDisplay () {
       if (currentIndex < images.length - 1) {
         currentIndex++;
         currentImageDisplay();
       }
     }
-    function nextImageDisplay () {
+    function previousImageDisplay () {
       if (currentIndex > 0) {
         currentIndex--;
         currentImageDisplay();

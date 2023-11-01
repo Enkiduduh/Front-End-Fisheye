@@ -20,11 +20,11 @@
       <!-- Remettre en ordre le main -->
     </div>
     <div id="filter-containter">
-      <label for="filter">Trier par</label>
+      <label for="filter" id="label-filter">Trier par</label>
       <select name="filters" id="filter">
         <option value="popularite" class="filter-list">Popularité</option>
         <option value="date" class="filter-list">Date</option>
-        <option value="likes" class="filter-list">Likes</option>
+        <option value="titre" class="filter-list">Titre</option>
       </select>
     </div>
     <section id="photographer_gallery">
@@ -32,17 +32,15 @@
       </div>
     </section>
 
-
     <div id="display_modal">
       <span class="arrow" id="left-arrow"><i class="fa-solid fa-chevron-left"></i></span>
-      <img id="modal_image" class="modal-content">
+      <div>
+        <img id="modal_image" class="modal-content">
+        <div id="caption"></div>
+      </div>
       <span class="arrow" id="right-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-      <span class="close" id="close_modal">&times;</span>
-      <div id="caption"></div>
+      <span id="close_modal_display"><i class="fa-solid fa-xmark"></i></span>
     </div>
-
-
-
 
     </div>
     <div id="contact_modal">
@@ -50,7 +48,7 @@
 				<div class="modal-title">
           <div class="h_title">
             <h2>Contactez-moi</h2>
-            <img src="assets/icons/close.svg" onclick="closeModal()" id="close-modal"/>
+            <div id="close-modal"><i class="fa-solid fa-xmark"></i></div>
           </div>
           <h2 class="waiting">Mimi Keel test</h2>
         </div>
@@ -75,6 +73,7 @@
   </main>
     <div><a href="index.html">Retour à l'index</a></div>
     <script src="/scripts/pages/photographer.js" async></script>
+    <script src="scripts/templates/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
   </body>
 </html>

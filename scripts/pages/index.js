@@ -17,6 +17,10 @@ let photographerList = [];
     };
   }}
 
+  // getPhotographers()
+  // .then(() => {
+  //   console.log(photographerList);
+  // })
 
           async function displayData(photographers) {
             const photographersSection = document.querySelector(".photographer_section");
