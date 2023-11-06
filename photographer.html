@@ -32,14 +32,14 @@
       </div>
     </section>
 
-    <div id="display_modal">
-      <span class="arrow" id="left-arrow"><i class="fa-solid fa-chevron-left"></i></span>
+    <div id="display_modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <span class="arrow" id="left-arrow" role="button" tabindex="0" aria-label="Image précédente"><i class="fa-solid fa-chevron-left"></i></span>
       <div>
-        <img id="modal_image" class="modal-content">
+        <img id="modal_image" class="modal-content" role="img" aria-label="Image en cours">
         <div id="caption"></div>
       </div>
-      <span class="arrow" id="right-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-      <span id="close_modal_display"><i class="fa-solid fa-xmark"></i></span>
+      <span class="arrow" id="right-arrow" role="button" tabindex="0" aria-label="Image suivante"><i class="fa-solid fa-chevron-right"></i></span>
+      <span id="close_modal_display" role="button" tabindex="0" aria-label="Fermer la modal"><i class="fa-solid fa-xmark"></i></span>
     </div>
 
     </div>

@@ -89,11 +89,12 @@ function checkPhotographerId () {
     async function displayMediaWithPhotographerId () {
       const { media } = await getMedia();
       const sommeNbLikes = [];
+      const filterMedia = document.getElementById ("filter");
+
       for (let x = 0; x< photographersIdArray.length; x++) {
         if (photographersIdArray[x] == id) {
           let mediaFiltered = media.filter(m => m.photographerId == id)
           const photographer_gallery = document.getElementById ("photographer_gallery");
-          console.log(mediaFiltered)
           for (let i = 0; i < mediaFiltered.length; i++) {
             const galleryCard = document.createElement("div");
             galleryCard.classList.add("gallery_card");
@@ -112,8 +113,9 @@ function checkPhotographerId () {
             const mediaItem = mediaFiltered[i];
             mediaItem.hasLiked = false;
             sommeNbLikes.push(mediaFiltered[i].likes);
-            addALike (heartIcon, mediaItem, sommeNbLikes);
+            addALike (heartIcon, mediaItem);
             displayImgInModal ()
+
           }
           sumTab(sommeNbLikes);
           const nbLikes = document.getElementById("nb_likes");
@@ -133,12 +135,55 @@ function checkPhotographerId () {
                }
             });
           }
+          const filterMedia = document.getElementById("filter");
+          filterMedia.addEventListener("change", function() {
+            const selectedFilter = filterMedia.value;
+            if (selectedFilter === "popularite") {
+              // Triez par popularité
+              mediaFiltered.sort((a, b) => b.likes - a.likes);
+            } else if (selectedFilter === "date") {
+              // Triez par date (remplacez par la logique appropriée)
+              mediaFiltered.sort((a, b) => {
+                const dateA = new Date((a.date))
+                const dateB = new Date((b.date))
+                return dateA - dateB;
+              });
 
-        }
-      }
+            } else if (selectedFilter === "titre") {
+              // Triez par titre (remplacez par la logique appropriée)
+              mediaFiltered.sort((a, b) => a.title.localeCompare(b.title));
+            }
+            // Effacez l'affichage existant
+            const photographer_gallery = document.getElementById("photographer_gallery");
+            photographer_gallery.innerHTML = "";
+
+            // Réaffichez les éléments triés
+            for (let i = 0; i < mediaFiltered.length; i++) {
+              // Créez et ajoutez les éléments triés au photographe_gallery
+              const galleryCard = document.createElement("div");
+              galleryCard.classList.add("gallery_card");
+              galleryCard.innerHTML =
+              `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_image" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+              <div class="card_info">
+              <h3>${mediaFiltered[i].title}</h3>
+              <div>
+              <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
+              <i class="fa-solid fa-heart hearticon"></i>
+              </div>
+              </div>`;
+              photographer_gallery.appendChild(galleryCard);
+              const heartIcon = galleryCard.querySelector(".hearticon");
+              const likesSpan = galleryCard.querySelector("span");
+              const mediaItem = mediaFiltered[i];
+              mediaItem.hasLiked = false;
+              sommeNbLikes.push(mediaFiltered[i].likes);
+              addALike (heartIcon, mediaItem);
+              displayImgInModal ()
+            }
+        })
+      }}
     }
     displayMediaWithPhotographerId()
-
 
 
 
@@ -163,24 +208,20 @@ function checkPhotographerId () {
         currentImageDisplay();
 
         // Gérer la fermeture de la modal lorsque l'utilisateur clique sur le bouton de fermeture
-        closeModalBtn.addEventListener("click", function() {
-          modal.style.display = "none"; // Cacher la modal
-        });
+        closeModalBtn.addEventListener("click", closeModalDisplay );
         leftArrow.addEventListener("click", previousImageDisplay); // Afficher l'image précédente dans la modal
         rightArrow.addEventListener("click", nextImageDisplay); // Afficher l'image suivante dans la modal
     });
   });
     function currentImageDisplay() {
-      const chemin = images[currentIndex].alt;
-      const regExp = /\/([^/]+)$/;
+      const chemin = images[currentIndex].alt; //Recupérer dans le src la derniere partie
+      const regExp = /\/([^/]+)$/;             //Afin d'afficher le "title" du média via une regExp
       const match = chemin.match(regExp);
       if (match) {
         const dernierePartie = match[1];
         caption.innerHTML = dernierePartie;
         modalImage.src = images[currentIndex].src;// Afficher l'image cliquée dans la modal
       }
-      // caption.innerHTML = images[currentIndex].alt; // Utiliser le titre comme légende
-      // console.log(images[currentIndex])
     }
 
     function nextImageDisplay () {
@@ -195,4 +236,23 @@ function checkPhotographerId () {
         currentImageDisplay();
       }
     }
-  }
+    function closeModalDisplay () {
+      modal.style.display = "none"; // Cacher la modal
+      }
+      // Gestion des touches du clavier
+        document.addEventListener("keydown", function (event) {
+          if (modal.style.display === "flex") {
+            switch (event.key) {
+              case "ArrowLeft":
+                previousImageDisplay();
+                break;
+              case "ArrowRight":
+                nextImageDisplay();
+                break;
+              case "Escape":
+                closeModalDisplay();
+                break;
+            }
+          }
+        });
+    }
