@@ -2,8 +2,6 @@
 // console.log(photographerList[1].name)
 
 
-
-
 const params = new URL(document.location).searchParams;
 const id = parseInt(params.get("id"))   //phId
 
@@ -18,13 +16,13 @@ let mediaList = [];
 const closeModalBtn = document.getElementById("close-modal");
 const modal = document.getElementById("contact_modal");
 
-
 function sumTab (array) {
   const sum = (accumulator, value) => accumulator + value;
   const initialValue = 0;
   sumResult = array.reduce(sum, initialValue);
   return (sumResult);
 }
+
 
 const photographersIdArray = [243,930,82,527,925,195];
 console.log(id)
@@ -83,14 +81,19 @@ function checkPhotographerId () {
     checkPhotographerId()
 
 
+
+    function updateLikes(heartIcon, likes) {
+      heartIcon.previousElementSibling.textContent = likes; // Met à jour le texte du nombre de likes
+    }
+
     async function displayMediaWithPhotographerId () {
       const { media } = await getMedia();
+      const sommeNbLikes = [];
       for (let x = 0; x< photographersIdArray.length; x++) {
         if (photographersIdArray[x] == id) {
           let mediaFiltered = media.filter(m => m.photographerId == id)
           const photographer_gallery = document.getElementById ("photographer_gallery");
           console.log(mediaFiltered)
-          const sommeNbLikes = [];
           for (let i = 0; i < mediaFiltered.length; i++) {
             const galleryCard = document.createElement("div");
             galleryCard.classList.add("gallery_card");
@@ -99,12 +102,17 @@ function checkPhotographerId () {
             <div class="card_info">
             <h3>${mediaFiltered[i].title}</h3>
             <div>
-            <span>${mediaFiltered[i].likes}</span>
-            <i class="fa-solid fa-heart"></i>
+            <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
+            <i class="fa-solid fa-heart hearticon"></i>
             </div>
             </div>`;
             photographer_gallery.appendChild(galleryCard);
+            const heartIcon = galleryCard.querySelector(".hearticon");
+            const likesSpan = galleryCard.querySelector("span");
+            const mediaItem = mediaFiltered[i];
+            mediaItem.hasLiked = false;
             sommeNbLikes.push(mediaFiltered[i].likes);
+            addALike (heartIcon, mediaItem, sommeNbLikes);
             displayImgInModal ()
           }
           sumTab(sommeNbLikes);
@@ -112,22 +120,40 @@ function checkPhotographerId () {
           nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
           const price = document.getElementById("price");
           price.innerHTML =`${photographersData[x].price}€ / jour`;
+
+          function addALike (heartIcon, media) {
+            heartIcon.addEventListener("click", function(){
+               if (!media.hasLiked) {
+                console.log("Entree addALike")
+                media.likes++; // Augmente de 1 les likes
+                media.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
+                updateLikes(heartIcon, media.likes); // Met à jour l'affichage du nombre de likes
+                sumTab(sommeNbLikes);
+                console.log(sommeNbLikes)
+               }
+            });
+          }
+
         }
       }
     }
     displayMediaWithPhotographerId()
 
-function displayImgInModal () {
-    const main = document.getElementById("main-container");
-    const images = document.querySelectorAll(".gallery_image");
-    const modal = document.getElementById("display_modal");
-    const modalImage = document.getElementById("modal_image");
-    const caption = document.getElementById("caption");
-    const closeModalBtn = document.getElementById("close_modal_display");
-    const leftArrow = document.getElementById("left-arrow");
-    const rightArrow = document.getElementById("right-arrow");
 
-    let currentIndex = 0; // Index de l'image actuellement affichée
+
+
+
+    function displayImgInModal () {
+      const main = document.getElementById("main-container");
+      const images = document.querySelectorAll(".gallery_image");
+      const modal = document.getElementById("display_modal");
+      const modalImage = document.getElementById("modal_image");
+      const caption = document.getElementById("caption");
+      const closeModalBtn = document.getElementById("close_modal_display");
+      const leftArrow = document.getElementById("left-arrow");
+      const rightArrow = document.getElementById("right-arrow");
+
+      let currentIndex = 0; // Index de l'image actuellement affichée
 
 
     images.forEach((image, index) => {
