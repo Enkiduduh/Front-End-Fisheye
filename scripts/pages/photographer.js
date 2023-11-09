@@ -16,7 +16,7 @@ let mediaList = [];
 const closeModalBtn = document.getElementById("close-modal");
 const modal = document.getElementById("contact_modal");
 
-function sumTab (array) {
+function sumArray (array) {
   const sum = (accumulator, value) => accumulator + value;
   const initialValue = 0;
   sumResult = array.reduce(sum, initialValue);
@@ -113,26 +113,54 @@ function checkPhotographerId () {
             const mediaItem = mediaFiltered[i];
             mediaItem.hasLiked = false;
             sommeNbLikes.push(mediaFiltered[i].likes);
-            addALike (heartIcon, mediaItem);
+            addOrRemoveALike (heartIcon, mediaItem);
+
             displayImgInModal ()
 
           }
-          sumTab(sommeNbLikes);
+          sumArray(sommeNbLikes);
           const nbLikes = document.getElementById("nb_likes");
           nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
           const price = document.getElementById("price");
           price.innerHTML =`${photographersData[x].price}€ / jour`;
 
-          function addALike (heartIcon, media) {
+          function addOrRemoveALike (heartIcon, media) {
             heartIcon.addEventListener("click", function(){
                if (!media.hasLiked) {
-                console.log("Entree addALike")
-                media.likes++; // Augmente de 1 les likes
-                media.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
-                updateLikes(heartIcon, media.likes); // Met à jour l'affichage du nombre de likes
-                sumTab(sommeNbLikes);
-                console.log(sommeNbLikes)
-               }
+                  console.log("Entree addALike")
+                  media.likes++; // Augmente de 1 les likes
+                  media.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
+                  heartIcon.classList.add("hearticon_liked");
+                  updateLikes(heartIcon, media.likes); // Met à jour l'affichage du nombre de likes
+                  sumResult += 1;
+                  console.log(sumResult)
+                  nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
+                } else if (media.hasLiked) {
+                    console.log("Entree removeALike")
+                    media.likes--; // Suppression du like présent si déjà ajouté
+                    media.hasLiked = false; //
+                    heartIcon.classList.remove("hearticon_liked");
+                    heartIcon.classList.add("hearticon");
+                    updateLikes(heartIcon, media.likes); //
+                    sumResult -= 1;
+                    console.log(sumResult)
+                    nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
+                }
+            });
+          }
+          function removeALike (heartIcon, media) {
+            heartIcon.addEventListener("click", function(){
+               if (media.hasLiked) {
+                console.log("Entree removeALike")
+                media.likes--; // Suppression du like présent si déjà ajouté
+                media.hasLiked = false; //
+                heartIcon.classList.remove("hearticon_liked");
+                heartIcon.classList.add("hearticon");
+                updateLikes(heartIcon, media.likes); //
+                sumResult -= 1;
+                console.log(sumResult)
+                nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
+              }
             });
           }
           const filterMedia = document.getElementById("filter");
@@ -203,7 +231,8 @@ function checkPhotographerId () {
 
     images.forEach((image, index) => {
       image.addEventListener("click", function(){
-        modal.style.display = "flex"; // Afficher la modal
+        modal.style.display = "block"; // Afficher la modal
+        document.body.classList.add("no-scroll");
         currentIndex = index; // Mettre à jour l'index de l'image actuelle
         currentImageDisplay();
 
@@ -238,6 +267,7 @@ function checkPhotographerId () {
     }
     function closeModalDisplay () {
       modal.style.display = "none"; // Cacher la modal
+      document.body.classList.remove("no-scroll"); // Remettre en place la barre de scroll
       }
       // Gestion des touches du clavier
         document.addEventListener("keydown", function (event) {

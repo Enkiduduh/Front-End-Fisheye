@@ -22,36 +22,36 @@ let photographerList = [];
   //   console.log(photographerList);
   // })
 
-          async function displayData(photographers) {
-            const photographersSection = document.querySelector(".photographer_section");
+    async function displayData(photographers) {
+      const photographersSection = document.querySelector(".photographer_section");
 
-            photographers.forEach((photographer) => {
-              const photographerModel = photographerTemplate(photographer);
-              const userCardDOM = photographerModel.getUserCardDOM();
-              photographersSection.appendChild(userCardDOM);
-            });
-          }
+      photographers.forEach((photographer) => {
+        const photographerModel = photographerTemplate(photographer);
+        const userCardDOM = photographerModel.getUserCardDOM();
+        photographersSection.appendChild(userCardDOM);
+      });
+    }
 
-          async function init() {
-            // Récupère les datas des photographes
-            const { photographers } = await getPhotographers();
-            displayData(photographers);
-          }
+    async function init() {
+      // Récupère les datas des photographes
+      const { photographers } = await getPhotographers();
+      displayData(photographers);
+    }
 
-          init();
+    init();
 
-          async function verif() {
-            // Récupère les datas des photographes
-            const { photographers } = await getPhotographers();
-            photographers.forEach((photographer) => {
-              const photographerId = photographer.id;
-            })
-          }
-          verif();
+    async function verif() {
+      // Récupère les datas des photographes
+      const { photographers } = await getPhotographers();
+      photographers.forEach((photographer) => {
+        const photographerId = photographer.id;
+      })
+    }
+    verif();
 
-          async function clickOnPortrait () {
-            const { photographers } = await getPhotographers();
-            const dataStringified = JSON.stringify(photographers);
+    async function clickOnPortrait () {
+      const { photographers } = await getPhotographers();
+      const dataStringified = JSON.stringify(photographers);
     const imgArray = document.querySelectorAll("img")
     // console.log(imgArray)
     imgArray.forEach(img => {

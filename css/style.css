@@ -5,6 +5,10 @@ body {
   overflow-x: hidden;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
+
 header {
   display: flex;
   flex-direction: row;
@@ -84,6 +88,10 @@ textarea {
   border-radius: 5px;
   display: flex;
   align-items: center;
+}
+#filter-containter #filter:hover {
+  color: black;
+  background: #D3573C;
 }
 #filter-containter #filter .filter-display-none {
   display: none;
@@ -176,6 +184,9 @@ textarea {
      object-fit: cover;
   margin: 0 auto;
 }
+.photographer_section article:hover img {
+  box-shadow: rgb(237, 60, 60) 0px 0px 25px;
+}
 
 .photograph-header {
   justify-self: center;
@@ -246,13 +257,22 @@ textarea {
   left: 30%;
 }
 
+#display_modal_bg {
+  background-color: rgba(232, 231, 231, 0.8);
+  width: 100%;
+  height: 100%;
+}
+
 #display_modal {
   z-index: 2;
   display: none;
-  justify-content: center;
-  width: 800px;
-  height: 500px;
-  margin: 0 auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 850px;
+  height: 620px;
+  background-color: rgb(102, 222, 148);
 }
 #display_modal i {
   font-size: 28px;
@@ -261,25 +281,41 @@ textarea {
 #display_modal #caption {
   color: #901C1C;
   font-weight: bold;
+  position: relative;
+  top: 560px;
+  right: -50px;
 }
 #display_modal #close_modal_display {
   position: relative;
-  top: 0px;
-  right: 35px;
-  height: 30px;
+  top: -45px;
+  right: -810px;
 }
 #display_modal #modal_image {
-  width: 650px;
-  height: 500px;
+  width: 750px;
+  height: 550px;
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 5px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 #display_modal .arrow {
   width: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+#display_modal #right-arrow {
+  position: relative;
+  top: 250px;
+  right: -800px;
+}
+#display_modal #left-arrow {
+  position: relative;
+  top: 300px;
+  right: 0px;
 }
 
 .modal {
@@ -298,6 +334,14 @@ textarea {
 .modal .modal-title .h_title {
   display: flex;
   justify-content: space-between;
+}
+
+.hearticon {
+  color: #D3573C;
+}
+
+.hearticon_liked {
+  color: #901C1C;
 }
 
 #close-modal {

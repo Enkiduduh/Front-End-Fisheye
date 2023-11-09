@@ -16,6 +16,9 @@ body {
     overflow-x: hidden;
 }
 
+body.no-scroll {
+  overflow: hidden;
+}
 
 header {
     display: flex;
@@ -92,6 +95,10 @@ justify-content: space-between;
     border-radius: 5px;
     display: flex;
     align-items: center;
+    &:hover {
+      color: black;
+      background:$secondary_color_1_bg;
+    }
 
     .filter-display-none {
       display: none;
@@ -182,6 +189,11 @@ justify-content: space-between;
       object-fit: cover;
       margin: 0 auto;
     }
+    &:hover {
+      img {
+        box-shadow: rgb(237, 60, 60)   0px 0px 25px;
+      }
+    }
 }
 
 .photograph-header {
@@ -251,13 +263,22 @@ justify-content: space-between;
   top: 40px;
   left: 30%;
 }
+#display_modal_bg {
+  background-color: rgba(232, 231, 231, 0.8);
+  width: 100%;
+  height:100%;
+}
 #display_modal {
   z-index: 2;
   display: none;
-  justify-content: center;
-  width: 800px;
-  height: 500px;
-  margin: 0 auto;
+  position:fixed;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 850px;
+  height: 620px;
+  background-color: rgb(102, 222, 148);
+
   i {
     font-size: 28px;
     color : $secondary_color_3_font;
@@ -265,24 +286,41 @@ justify-content: space-between;
   #caption {
     color : $secondary_color_3_font;
     font-weight: bold;
+    position:relative;
+    top:560px;
+    right:-50px;
   }
   #close_modal_display{
     position: relative;
-    top: 0px;
-    right: 35px;
-    height: 30px;
+    top: -45px;
+    right: -810px;
+
   }
   #modal_image {
-    width: 650px;
-    height: 500px;
+    width: 750px;
+    height: 550px;
     object-fit: cover;
     border-radius: 5px;
+    position:absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
   }
   .arrow{
     width: 50px;
     display:flex;
     justify-content: center;
     align-items: center;
+  }
+  #right-arrow {
+    position:relative;
+    top:250px;
+    right:-800px;
+  }
+  #left-arrow {
+    position:relative;
+    top:300px;
+    right:0px;
   }
 }
 .modal {
@@ -304,6 +342,13 @@ justify-content: space-between;
     }
   }
 }
+.hearticon {
+  color: $primary_color_2_font;
+}
+.hearticon_liked {
+  color : $secondary_color_3_font;
+}
+
 #close-modal {
   width: 36px;
 }
