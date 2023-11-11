@@ -34,22 +34,22 @@
         </div>
       </div>
     </section>
-
-    <div id="display_modal" role="dialog" aria-modal="true" aria-hidden="true">
-      <span class="arrow" id="left-arrow" role="button" tabindex="0" aria-label="Image précédente"><i class="fa-solid fa-chevron-left"></i></span>
-      <img id="modal_image" class="modal-content" role="img" aria-label="Image en cours">
-      <div id="caption"></div>
-      <span class="arrow" id="right-arrow" role="button" tabindex="0" aria-label="Image suivante"><i class="fa-solid fa-chevron-right"></i></span>
-      <span id="close_modal_display" role="button" tabindex="0" aria-label="Fermer la modal"><i class="fa-solid fa-xmark"></i></span>
+    <div id="display_modal_background" aria-hidden="true">
+      <div id="display_modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <span class="arrow" id="left-arrow" role="button" tabindex="0" aria-label="Image précédente"><i class="fa-solid fa-chevron-left"></i></span>
+        <img id="modal_image" class="modal-content" role="img" aria-label="Image en cours">
+        <div id="caption"></div>
+        <span class="arrow" id="right-arrow" role="button" tabindex="0" aria-label="Image suivante"><i class="fa-solid fa-chevron-right"></i></span>
+        <span id="close_modal_display" role="button" tabindex="0" aria-label="Fermer la modal"><i class="fa-solid fa-xmark"></i></span>
+      </div>
     </div>
-
     </div>
     <div id="contact_modal">
 			<div class="modal">
 				<div class="modal-title">
           <div class="h_title">
             <h2>Contactez-moi</h2>
-            <div id="close-modal"><i class="fa-solid fa-xmark"></i></div>
+            <div id="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark" id="close_modal_contact_icon"></i></div>
           </div>
           <h2 class="waiting">Mimi Keel test</h2>
         </div>

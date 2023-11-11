@@ -114,7 +114,6 @@ function checkPhotographerId () {
             mediaItem.hasLiked = false;
             sommeNbLikes.push(mediaFiltered[i].likes);
             addOrRemoveALike (heartIcon, mediaItem);
-
             displayImgInModal ()
 
           }
@@ -148,21 +147,7 @@ function checkPhotographerId () {
                 }
             });
           }
-          function removeALike (heartIcon, media) {
-            heartIcon.addEventListener("click", function(){
-               if (media.hasLiked) {
-                console.log("Entree removeALike")
-                media.likes--; // Suppression du like présent si déjà ajouté
-                media.hasLiked = false; //
-                heartIcon.classList.remove("hearticon_liked");
-                heartIcon.classList.add("hearticon");
-                updateLikes(heartIcon, media.likes); //
-                sumResult -= 1;
-                console.log(sumResult)
-                nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
-              }
-            });
-          }
+
           const filterMedia = document.getElementById("filter");
           filterMedia.addEventListener("change", function() {
             const selectedFilter = filterMedia.value;
@@ -205,7 +190,7 @@ function checkPhotographerId () {
               const mediaItem = mediaFiltered[i];
               mediaItem.hasLiked = false;
               sommeNbLikes.push(mediaFiltered[i].likes);
-              addALike (heartIcon, mediaItem);
+              addOrRemoveALike (heartIcon, mediaItem);
               displayImgInModal ()
             }
         })
@@ -221,6 +206,7 @@ function checkPhotographerId () {
       const images = document.querySelectorAll(".gallery_image");
       const modal = document.getElementById("display_modal");
       const modalImage = document.getElementById("modal_image");
+      const modalBg = document.getElementById("display_modal_background");
       const caption = document.getElementById("caption");
       const closeModalBtn = document.getElementById("close_modal_display");
       const leftArrow = document.getElementById("left-arrow");
@@ -232,6 +218,7 @@ function checkPhotographerId () {
     images.forEach((image, index) => {
       image.addEventListener("click", function(){
         modal.style.display = "block"; // Afficher la modal
+        modalBg.style.display = "block";
         document.body.classList.add("no-scroll");
         currentIndex = index; // Mettre à jour l'index de l'image actuelle
         currentImageDisplay();
@@ -267,22 +254,23 @@ function checkPhotographerId () {
     }
     function closeModalDisplay () {
       modal.style.display = "none"; // Cacher la modal
+      modalBg.style.display = "none";
       document.body.classList.remove("no-scroll"); // Remettre en place la barre de scroll
-      }
+    }
       // Gestion des touches du clavier
-        document.addEventListener("keydown", function (event) {
-          if (modal.style.display === "flex") {
-            switch (event.key) {
-              case "ArrowLeft":
-                previousImageDisplay();
-                break;
-              case "ArrowRight":
-                nextImageDisplay();
-                break;
-              case "Escape":
-                closeModalDisplay();
-                break;
-            }
+      document.addEventListener("keydown", function (event) {
+        if (modal.style.display === "block") {
+          switch (event.key) {
+            case "ArrowLeft":
+              previousImageDisplay();
+              break;
+            case "ArrowRight":
+              nextImageDisplay();
+              break;
+            case "Escape":
+              closeModalDisplay();
+              break;
           }
-        });
+        }
+      });
     }
