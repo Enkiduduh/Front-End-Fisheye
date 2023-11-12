@@ -46,8 +46,8 @@ h1 {
   border-top-left-radius: 5px;
   padding: 10px;
   bottom: 0px;
-  left: 1150px;
-  width: 200px;
+  left: 1050px;
+  width: 150px;
   display: flex;
   justify-content: space-between;
 }
@@ -116,6 +116,16 @@ h1 {
   -o-object-fit: cover;
      object-fit: cover;
 }
+#photographer_gallery img:hover {
+  transform: scale(1.05);
+}
+#photographer_gallery video {
+  width: 280px;
+  height: 280px;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 #photographer_gallery .gallery_card {
   width: 280px;
   margin: 0 auto;
@@ -177,7 +187,7 @@ h1 {
      object-fit: cover;
   margin: 0 auto;
 }
-.photographer_section article:hover img {
+.photographer_section article img:hover {
   box-shadow: rgb(237, 60, 60) 0px 0px 25px;
 }
 
@@ -382,6 +392,7 @@ form input {
   height: 40px;
   border: none;
   border-radius: 5px;
+  outline: none;
 }
 
 textarea {
@@ -390,4 +401,5 @@ textarea {
   border-radius: 7px;
   border: transparent;
   height: 100px;
+  outline: none;
 }/*# sourceMappingURL=style.css.map */

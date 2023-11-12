@@ -25,7 +25,7 @@ function sumArray (array) {
 
 
 const photographersIdArray = [243,930,82,527,925,195];
-console.log(id)
+
 let sumResult = 0;
 async function getMedia() {
   let response = await fetch('data/photographers.json');
@@ -59,6 +59,7 @@ function checkPhotographerId () {
           const photographerCountry = photographersData[i].country;
           const photographerTagline = photographersData[i].tagline;
           const photographerPrice = photographersData[i].price;
+          const waiting = document.getElementById("waiting");
           const photographerPortrait = `assets/photographers/${photographersData[i].portrait}`;
           console.log(`id:${id}`)
           console.log(photographersData[i].name)
@@ -73,6 +74,7 @@ function checkPhotographerId () {
           <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
           <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait of the artist Tracy Galindo">
           </div>`;
+          waiting.textContent=photographerName;
           getMedia();
         }
       }
@@ -98,15 +100,29 @@ function checkPhotographerId () {
           for (let i = 0; i < mediaFiltered.length; i++) {
             const galleryCard = document.createElement("div");
             galleryCard.classList.add("gallery_card");
-            galleryCard.innerHTML =
-            `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_image" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
-            <div class="card_info">
-            <h3>${mediaFiltered[i].title}</h3>
-            <div>
-            <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
-            <i class="fa-solid fa-heart hearticon"></i>
-            </div>
-            </div>`;
+            if (mediaFiltered[i].image) {
+              galleryCard.innerHTML =
+              `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+              <div class="card_info">
+              <h3>${mediaFiltered[i].title}</h3>
+              <div>
+              <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
+              <i class="fa-solid fa-heart hearticon"></i>
+              </div>
+              </div>`;
+            } else if (mediaFiltered[i].video) {
+              galleryCard.innerHTML =
+              `<video>
+              <source src="assets/images/${photographersData[x].name}/${mediaFiltered[i].video}"  class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+              </video>
+              <div class="card_info">
+              <h3>${mediaFiltered[i].title}</h3>
+              <div>
+              <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
+              <i class="fa-solid fa-heart hearticon"></i>
+              </div>
+              </div>`;
+            }
             photographer_gallery.appendChild(galleryCard);
             const heartIcon = galleryCard.querySelector(".hearticon");
             const likesSpan = galleryCard.querySelector("span");
@@ -176,7 +192,7 @@ function checkPhotographerId () {
               const galleryCard = document.createElement("div");
               galleryCard.classList.add("gallery_card");
               galleryCard.innerHTML =
-              `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_image" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+              `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
               <div class="card_info">
               <h3>${mediaFiltered[i].title}</h3>
               <div>
@@ -203,7 +219,7 @@ function checkPhotographerId () {
 
     function displayImgInModal () {
       const main = document.getElementById("main-container");
-      const images = document.querySelectorAll(".gallery_image");
+      const medias = document.querySelectorAll(".gallery_media");
       const modal = document.getElementById("display_modal");
       const modalImage = document.getElementById("modal_image");
       const modalBg = document.getElementById("display_modal_background");
@@ -215,41 +231,41 @@ function checkPhotographerId () {
       let currentIndex = 0; // Index de l'image actuellement affichée
 
 
-    images.forEach((image, index) => {
-      image.addEventListener("click", function(){
+    medias.forEach((media, index) => {
+      media.addEventListener("click", function(){
         modal.style.display = "block"; // Afficher la modal
         modalBg.style.display = "block";
         document.body.classList.add("no-scroll");
         currentIndex = index; // Mettre à jour l'index de l'image actuelle
-        currentImageDisplay();
+        currentMediaDisplay();
 
         // Gérer la fermeture de la modal lorsque l'utilisateur clique sur le bouton de fermeture
         closeModalBtn.addEventListener("click", closeModalDisplay );
-        leftArrow.addEventListener("click", previousImageDisplay); // Afficher l'image précédente dans la modal
-        rightArrow.addEventListener("click", nextImageDisplay); // Afficher l'image suivante dans la modal
+        leftArrow.addEventListener("click", previousMediaDisplay); // Afficher l'image précédente dans la modal
+        rightArrow.addEventListener("click", nextMediaDisplay); // Afficher l'image suivante dans la modal
     });
   });
-    function currentImageDisplay() {
-      const chemin = images[currentIndex].alt; //Recupérer dans le src la derniere partie
+    function currentMediaDisplay() {
+      const chemin = medias[currentIndex].alt; //Recupérer dans le src la derniere partie
       const regExp = /\/([^/]+)$/;             //Afin d'afficher le "title" du média via une regExp
       const match = chemin.match(regExp);
       if (match) {
         const dernierePartie = match[1];
         caption.innerHTML = dernierePartie;
-        modalImage.src = images[currentIndex].src;// Afficher l'image cliquée dans la modal
+        modalImage.src = medias[currentIndex].src;// Afficher l'image cliquée dans la modal
       }
     }
 
-    function nextImageDisplay () {
-      if (currentIndex < images.length - 1) {
+    function nextMediaDisplay () {
+      if (currentIndex < medias.length - 1) {
         currentIndex++;
-        currentImageDisplay();
+        currentMediaDisplay();
       }
     }
-    function previousImageDisplay () {
+    function previousMediaDisplay () {
       if (currentIndex > 0) {
         currentIndex--;
-        currentImageDisplay();
+        currentMediaDisplay();
       }
     }
     function closeModalDisplay () {
@@ -262,10 +278,10 @@ function checkPhotographerId () {
         if (modal.style.display === "block") {
           switch (event.key) {
             case "ArrowLeft":
-              previousImageDisplay();
+              previousMediaDisplay();
               break;
             case "ArrowRight":
-              nextImageDisplay();
+              nextMediaDisplay();
               break;
             case "Escape":
               closeModalDisplay();
@@ -273,4 +289,125 @@ function checkPhotographerId () {
           }
         }
       });
+  }
+
+    const form = document.getElementById("myForm");
+    console.log(form);
+
+    const firstname = document.getElementById("firstname");
+    const lastname = document.getElementById("lastname");
+    const email = document.getElementById("email");
+    const message = document.getElementById("message");
+
+    console.log(form.firstname)
+
+    form.firstname.addEventListener("input", function(){
+        console.log("bonjour")
+    })
+    form.lastname.addEventListener("input", function(){
+      console.log("bonjour")
+    })
+    form.email.addEventListener("input", function(){
+      console.log("bonjour")
+    })
+    form.message.addEventListener("input", function(){
+
+    })
+
+    function validate(){
+      console.log(new Message(`${form.firstname.value}`,`${form.lastname.value}`,`${form.email.value}`,`${form.message.value}`))
+      return false
     }
+
+    class Message {
+        constructor(firstname, lastname, email, message) {
+          this.fistname = firstname;
+          this.lastname = lastname;
+          this.email = email;
+          this.message = message;
+        }
+
+        display(){
+          console.log(`Nom : ${this.lastname}, Prénom : ${this.firstname}`);
+          console.log(`Email : ${this.email}`);
+          console.log(`Message : ${this.message}`);
+        }
+    }
+
+
+
+  class Media {
+    constructor(data, photographerName) {
+      this.id = data.id;
+      this.photographerId = data.photographerId;
+      this.title = data.title;
+      this.likes = data.likes;
+      this.date = data.date;
+      this.price = data.price;
+      this.photographerName = photographerName;
+    }
+
+    display() {
+      // Logique commune pour l'affichage des médias
+      console.log(`Media ID: ${this.id}`);
+      console.log(`Photographer: ${this.photographerName}`);
+      console.log(`Title: ${this.title}`);
+      console.log(`Likes: ${this.likes}`);
+      console.log(`Date: ${this.date}`);
+      console.log(`Price: ${this.price}`);
+    }
+  }
+
+ // Classe spécifique pour les photos
+class Photo extends Media {
+  constructor(data, photographerName) {
+    super(data, photographerName);
+    this.image = data.image;
+  }
+
+  display() {
+    super.display(); // Appeler la méthode display de la classe parent
+    // Logique spécifique pour l'affichage des photos
+    console.log(`Image: ${this.image}`);
+  }
+}
+
+  // Classe spécifique pour les vidéos
+class Video extends Media {
+  constructor(data, photographerName) {
+    super(data, photographerName);
+    this.video = data.video;
+  }
+
+  display() {
+    super.display(); // Appeler la méthode display de la classe parent
+    // Logique spécifique pour l'affichage des vidéos
+    console.log(`Video: ${this.video}`);
+  }
+}
+
+// Factory pour créer les objets média en fonction de leur type
+class MediaFactory {
+  static createMedia(data, photographerName) {
+    if (data.image) {
+      return new Photo(data, photographerName);
+    } else if (data.video) {
+      return new Video(data, photographerName);
+    }
+    throw new Error("Invalid media type");
+  }
+}
+const mediaData = {
+  id: 1,
+  photographerId: 123,
+  title: "Beautiful Sunset",
+  likes: 42,
+  date: "2022-01-01",
+  price: 50,
+  image: "sunset.jpg"
+};
+
+const photographerName = "John Doe";
+
+const media = MediaFactory.createMedia(mediaData, photographerName);
+media.display();

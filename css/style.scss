@@ -57,8 +57,8 @@ border-top-right-radius: 5px;
 border-top-left-radius: 5px;
 padding: 10px;
 bottom: 0px;
-left: 1150px;
-width:200px;
+left: 1050px;
+width:150px;
 display:flex;
 justify-content: space-between;
 }
@@ -125,6 +125,15 @@ justify-content: space-between;
     height: 280px;
     border-radius: 5px;
     object-fit: cover;
+    &:hover{
+      transform: scale(1.05);
+    }
+  }
+  video {
+    width: 280px;
+    height: 280px;
+    border-radius: 5px;
+    object-fit: cover;
   }
   .gallery_card {
     width: 280px;
@@ -183,10 +192,8 @@ justify-content: space-between;
       border-radius: 50%;
       object-fit: cover;
       margin: 0 auto;
-    }
-    &:hover {
-      img {
-        box-shadow: rgb(237, 60, 60)   0px 0px 25px;
+      &:hover {
+          box-shadow: rgb(237, 60, 60)   0px 0px 25px;
       }
     }
 }
@@ -389,6 +396,7 @@ form input {
   height: 40px;
   border: none;
   border-radius: 5px;
+  outline: none;
 }
 textarea {
   resize: none;
@@ -396,4 +404,5 @@ textarea {
   border-radius: 7px;
   border: transparent;
   height:100px;
+  outline: none;
 }
