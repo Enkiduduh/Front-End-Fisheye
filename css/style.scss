@@ -120,21 +120,22 @@ justify-content: space-between;
   grid-template-columns: 1fr 1fr 1fr;
   margin: 0 100px;
   gap: 30px;
-  img {
+  .gallery_media {
     width: 280px;
     height: 280px;
     border-radius: 5px;
     object-fit: cover;
+    transition: all 500ms;
     &:hover{
       transform: scale(1.05);
     }
   }
-  video {
-    width: 280px;
-    height: 280px;
-    border-radius: 5px;
-    object-fit: cover;
-  }
+  // video {
+  //   width: 280px;
+  //   height: 280px;
+  //   border-radius: 5px;
+  //   object-fit: cover;
+  // }
   .gallery_card {
     width: 280px;
     margin: 0 auto;
@@ -299,7 +300,7 @@ justify-content: space-between;
     right: -810px;
 
   }
-  #modal_image {
+  #modal_image, #modal_video {
     width: 750px;
     height: 550px;
     object-fit: cover;
@@ -308,6 +309,7 @@ justify-content: space-between;
     top: 50%;
     left:50%;
     transform: translate(-50%, -50%);
+
   }
   .arrow{
     width: 50px;

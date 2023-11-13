@@ -112,8 +112,7 @@ function checkPhotographerId () {
               </div>`;
             } else if (mediaFiltered[i].video) {
               galleryCard.innerHTML =
-              `<video>
-              <source src="assets/images/${photographersData[x].name}/${mediaFiltered[i].video}"  class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+              `<video class="gallery_media" src="assets/images/${photographersData[x].name}/${mediaFiltered[i].video}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
               </video>
               <div class="card_info">
               <h3>${mediaFiltered[i].title}</h3>
@@ -222,6 +221,8 @@ function checkPhotographerId () {
       const medias = document.querySelectorAll(".gallery_media");
       const modal = document.getElementById("display_modal");
       const modalImage = document.getElementById("modal_image");
+      const modalVideo = document.getElementById("modal_video");
+      const ModalCurrentMedias = document.getElementById("medias");
       const modalBg = document.getElementById("display_modal_background");
       const caption = document.getElementById("caption");
       const closeModalBtn = document.getElementById("close_modal_display");
@@ -246,14 +247,40 @@ function checkPhotographerId () {
     });
   });
     function currentMediaDisplay() {
-      const chemin = medias[currentIndex].alt; //Recupérer dans le src la derniere partie
-      const regExp = /\/([^/]+)$/;             //Afin d'afficher le "title" du média via une regExp
-      const match = chemin.match(regExp);
+
+      const chemin = medias[currentIndex].src; //Recupérer dans le src la derniere partie
+      const title = medias[currentIndex].alt;
+      const regExpJpg = /\.jpg$/;
+      const regExpVideo = /\.mp4$/;
+      const matchVideo = chemin.match(regExpVideo);
+      const matchImage = chemin.match(regExpJpg);
+
+      const regExp = /\/([^/]+)$/;   //Afin d'afficher le "title" du média via une regExp
+
+
+      if (matchImage) {
+        const match = medias[currentIndex].alt.match(regExp);
       if (match) {
         const dernierePartie = match[1];
         caption.innerHTML = dernierePartie;
-        modalImage.src = medias[currentIndex].src;// Afficher l'image cliquée dans la modal
       }
+        modalImage.style.display = "block";
+        modalVideo.style.display = "none";
+        modalImage.src = chemin;// Afficher l'image cliquée dans la modal
+        console.log(medias[currentIndex])
+      } else if (matchVideo) {
+          modalImage.style.display = "none";
+          modalVideo.style.display = "block";
+          modalVideo.src = medias[currentIndex].src;
+          modalVideo.autoplay = true;
+          modalVideo.loop = true;
+          console.log(medias[currentIndex])
+        }
+      //  else if (medias[currentIndex].type === "mp4") {
+      //     modalVideo.innerHTML =`<video src="${medias[currentIndex].src}" alt="${medias[currentIndex].alt}" autoplay="" loop=""></video>`
+      //     console.log("2")
+      // }
+
     }
 
     function nextMediaDisplay () {
@@ -336,78 +363,78 @@ function checkPhotographerId () {
 
 
 
-  class Media {
-    constructor(data, photographerName) {
-      this.id = data.id;
-      this.photographerId = data.photographerId;
-      this.title = data.title;
-      this.likes = data.likes;
-      this.date = data.date;
-      this.price = data.price;
-      this.photographerName = photographerName;
-    }
+//   class Media {
+//     constructor(data, photographerName) {
+//       this.id = data.id;
+//       this.photographerId = data.photographerId;
+//       this.title = data.title;
+//       this.likes = data.likes;
+//       this.date = data.date;
+//       this.price = data.price;
+//       this.photographerName = photographerName;
+//     }
 
-    display() {
-      // Logique commune pour l'affichage des médias
-      console.log(`Media ID: ${this.id}`);
-      console.log(`Photographer: ${this.photographerName}`);
-      console.log(`Title: ${this.title}`);
-      console.log(`Likes: ${this.likes}`);
-      console.log(`Date: ${this.date}`);
-      console.log(`Price: ${this.price}`);
-    }
-  }
+//     display() {
+//       // Logique commune pour l'affichage des médias
+//       console.log(`Media ID: ${this.id}`);
+//       console.log(`Photographer: ${this.photographerName}`);
+//       console.log(`Title: ${this.title}`);
+//       console.log(`Likes: ${this.likes}`);
+//       console.log(`Date: ${this.date}`);
+//       console.log(`Price: ${this.price}`);
+//     }
+//   }
 
- // Classe spécifique pour les photos
-class Photo extends Media {
-  constructor(data, photographerName) {
-    super(data, photographerName);
-    this.image = data.image;
-  }
+//  // Classe spécifique pour les photos
+// class Photo extends Media {
+//   constructor(data, photographerName) {
+//     super(data, photographerName);
+//     this.image = data.image;
+//   }
 
-  display() {
-    super.display(); // Appeler la méthode display de la classe parent
-    // Logique spécifique pour l'affichage des photos
-    console.log(`Image: ${this.image}`);
-  }
-}
+//   display() {
+//     super.display(); // Appeler la méthode display de la classe parent
+//     // Logique spécifique pour l'affichage des photos
+//     console.log(`Image: ${this.image}`);
+//   }
+// }
 
-  // Classe spécifique pour les vidéos
-class Video extends Media {
-  constructor(data, photographerName) {
-    super(data, photographerName);
-    this.video = data.video;
-  }
+//   // Classe spécifique pour les vidéos
+// class Video extends Media {
+//   constructor(data, photographerName) {
+//     super(data, photographerName);
+//     this.video = data.video;
+//   }
 
-  display() {
-    super.display(); // Appeler la méthode display de la classe parent
-    // Logique spécifique pour l'affichage des vidéos
-    console.log(`Video: ${this.video}`);
-  }
-}
+//   display() {
+//     super.display(); // Appeler la méthode display de la classe parent
+//     // Logique spécifique pour l'affichage des vidéos
+//     console.log(`Video: ${this.video}`);
+//   }
+// }
 
-// Factory pour créer les objets média en fonction de leur type
-class MediaFactory {
-  static createMedia(data, photographerName) {
-    if (data.image) {
-      return new Photo(data, photographerName);
-    } else if (data.video) {
-      return new Video(data, photographerName);
-    }
-    throw new Error("Invalid media type");
-  }
-}
-const mediaData = {
-  id: 1,
-  photographerId: 123,
-  title: "Beautiful Sunset",
-  likes: 42,
-  date: "2022-01-01",
-  price: 50,
-  image: "sunset.jpg"
-};
+// // Factory pour créer les objets média en fonction de leur type
+// class MediaFactory {
+//   static createMedia(data, photographerName) {
+//     if (data.image) {
+//       return new Photo(data, photographerName);
+//     } else if (data.video) {
+//       return new Video(data, photographerName);
+//     }
+//     throw new Error("Invalid media type");
+//   }
+// }
+// const mediaData = {
+//   id: 1,
+//   photographerId: 123,
+//   title: "Beautiful Sunset",
+//   likes: 42,
+//   date: "2022-01-01",
+//   price: 50,
+//   image: "sunset.jpg"
+// };
 
-const photographerName = "John Doe";
+// const photographerName = "John Doe";
 
-const media = MediaFactory.createMedia(mediaData, photographerName);
-media.display();
+// const media = MediaFactory.createMedia(mediaData, photographerName);
+// media.display();

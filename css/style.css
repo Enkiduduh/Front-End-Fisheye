@@ -109,22 +109,16 @@ h1 {
   margin: 0 100px;
   gap: 30px;
 }
-#photographer_gallery img {
+#photographer_gallery .gallery_media {
   width: 280px;
   height: 280px;
   border-radius: 5px;
   -o-object-fit: cover;
      object-fit: cover;
+  transition: all 500ms;
 }
-#photographer_gallery img:hover {
+#photographer_gallery .gallery_media:hover {
   transform: scale(1.05);
-}
-#photographer_gallery video {
-  width: 280px;
-  height: 280px;
-  border-radius: 5px;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 #photographer_gallery .gallery_card {
   width: 280px;
@@ -292,7 +286,7 @@ h1 {
   top: -45px;
   right: -810px;
 }
-#display_modal #modal_image {
+#display_modal #modal_image, #display_modal #modal_video {
   width: 750px;
   height: 550px;
   -o-object-fit: cover;
