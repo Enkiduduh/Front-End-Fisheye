@@ -49,22 +49,22 @@ let photographerList = [];
     }
     verif();
 
-    async function clickOnPortrait () {
-      const { photographers } = await getPhotographers();
-      const dataStringified = JSON.stringify(photographers);
-    const imgArray = document.querySelectorAll("img")
-    // console.log(imgArray)
-    imgArray.forEach(img => {
-      img.addEventListener("click", () => {
-        photographers.forEach((photographer) => {
-          const pgrId = img.id;
-          window.location.href = `photographer.html?id=${pgrId}`;
-        })
-      })
-    });
+  //   async function clickOnPortrait () {
+  //     const { photographers } = await getPhotographers();
+  //     const dataStringified = JSON.stringify(photographers);
+  //   const imgArray = document.querySelectorAll("img")
+  //   // console.log(imgArray)
+  //   imgArray.forEach(img => {
+  //     img.addEventListener("click", () => {
+  //       photographers.forEach((photographer) => {
+  //         const pgrId = img.id;
+  //         window.location.href = `photographer.html?id=${pgrId}`;
+  //       })
+  //     })
+  //   });
 
-  }
-  clickOnPortrait();
+  // }
+  // clickOnPortrait();
 
   // Fonction de sauvegarde des données photographers
   async function storageData () {

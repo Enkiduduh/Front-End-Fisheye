@@ -12,6 +12,13 @@ function photographerTemplate(data) {
         img.setAttribute("id", id);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
+        const aLink = document.createElement('a');
+        aLink.setAttribute("role", "link");
+        aLink.classList.add("card-link");
+        aLink.setAttribute("tabindex","0");
+        aLink.href = `photographer.html?id=${id}`;
+        aLink.appendChild(img);
+        aLink.appendChild(h2);
         const h3 = document.createElement( 'h3' );
         h3.textContent = `${city}, ${country}`;
         const p1 = document.createElement( 'p' );
@@ -20,8 +27,7 @@ function photographerTemplate(data) {
         const p2 = document.createElement( 'p' );
         p2.textContent = `${price}€/jour`;
         p2.classList.add("p_grey_color");
-        article.appendChild(img);
-        article.appendChild(h2);
+        article.appendChild(aLink);
         article.appendChild(h3);
         article.appendChild(p1);
         article.appendChild(p2);

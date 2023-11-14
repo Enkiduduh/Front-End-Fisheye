@@ -47,7 +47,7 @@ h1 {
   padding: 10px;
   bottom: 0px;
   left: 80%;
-  width: 160px;
+  width: 140px;
   display: flex;
   justify-content: space-between;
 }
@@ -156,6 +156,10 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.photographer_section article .card-link {
+  text-align: center;
+  text-decoration: none;
 }
 .photographer_section article h2 {
   color: #D3573C;

@@ -58,7 +58,7 @@ border-top-left-radius: 5px;
 padding: 10px;
 bottom: 0px;
 left: 80%;
-width:160px;
+width:140px;
 display:flex;
 justify-content: space-between;
   #nb_likes {
@@ -171,6 +171,10 @@ justify-content: space-between;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .card-link {
+      text-align: center;
+      text-decoration: none;
+    }
     h2 {
       color: $primary_color_2_font;
       font-size: 36px;
