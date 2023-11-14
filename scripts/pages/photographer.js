@@ -107,18 +107,18 @@ function checkPhotographerId () {
               <h3>${mediaFiltered[i].title}</h3>
               <div>
               <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
-              <i class="fa-solid fa-heart hearticon"></i>
+              <i class="fa-regular fa-heart hearticon"></i>
               </div>
               </div>`;
             } else if (mediaFiltered[i].video) {
               galleryCard.innerHTML =
-              `<video class="gallery_media" src="assets/images/${photographersData[x].name}/${mediaFiltered[i].video}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
+              `<video class="gallery_media video_media" src="assets/images/${photographersData[x].name}/${mediaFiltered[i].video}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
               </video>
               <div class="card_info">
               <h3>${mediaFiltered[i].title}</h3>
               <div>
               <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
-              <i class="fa-solid fa-heart hearticon"></i>
+              <i class="fa-regular fa-heart hearticon"></i>
               </div>
               </div>`;
             }
@@ -145,6 +145,8 @@ function checkPhotographerId () {
                   media.likes++; // Augmente de 1 les likes
                   media.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
                   heartIcon.classList.add("hearticon_liked");
+                  heartIcon.classList.add("fa-solid");
+                  heartIcon.classList.remove("fa-regular");
                   updateLikes(heartIcon, media.likes); // Met à jour l'affichage du nombre de likes
                   sumResult += 1;
                   console.log(sumResult)
@@ -155,6 +157,8 @@ function checkPhotographerId () {
                     media.hasLiked = false; //
                     heartIcon.classList.remove("hearticon_liked");
                     heartIcon.classList.add("hearticon");
+                    heartIcon.classList.remove("fa-solid");
+                    heartIcon.classList.add("fa-regular");
                     updateLikes(heartIcon, media.likes); //
                     sumResult -= 1;
                     console.log(sumResult)
@@ -217,12 +221,10 @@ function checkPhotographerId () {
 
 
     function displayImgInModal () {
-      const main = document.getElementById("main-container");
       const medias = document.querySelectorAll(".gallery_media");
       const modal = document.getElementById("display_modal");
       const modalImage = document.getElementById("modal_image");
       const modalVideo = document.getElementById("modal_video");
-      const ModalCurrentMedias = document.getElementById("medias");
       const modalBg = document.getElementById("display_modal_background");
       const caption = document.getElementById("caption");
       const closeModalBtn = document.getElementById("close_modal_display");
@@ -230,7 +232,6 @@ function checkPhotographerId () {
       const rightArrow = document.getElementById("right-arrow");
 
       let currentIndex = 0; // Index de l'image actuellement affichée
-
 
     medias.forEach((media, index) => {
       media.addEventListener("click", function(){
@@ -249,7 +250,6 @@ function checkPhotographerId () {
     function currentMediaDisplay() {
 
       const chemin = medias[currentIndex].src; //Recupérer dans le src la derniere partie
-      const title = medias[currentIndex].alt;
       const regExpJpg = /\.jpg$/;
       const regExpVideo = /\.mp4$/;
       const matchVideo = chemin.match(regExpVideo);
@@ -267,20 +267,22 @@ function checkPhotographerId () {
         modalImage.style.display = "block";
         modalVideo.style.display = "none";
         modalImage.src = chemin;// Afficher l'image cliquée dans la modal
-        console.log(medias[currentIndex])
       } else if (matchVideo) {
+          const videoElement = document.querySelector('.video_media'); // Sélectionnez votre élément vidéo par une classe ou une autre méthode
+          const title = videoElement.getAttribute('alt');
+          console.log(title)
+          const lastPartTitle = title.match(regExp);
+          const titleVideo = lastPartTitle[1];
+          console.log(titleVideo)
+
+          caption.innerHTML = titleVideo;
           modalImage.style.display = "none";
           modalVideo.style.display = "block";
-          modalVideo.src = medias[currentIndex].src;
+          modalVideo.src = chemin;
           modalVideo.autoplay = true;
           modalVideo.loop = true;
           console.log(medias[currentIndex])
         }
-      //  else if (medias[currentIndex].type === "mp4") {
-      //     modalVideo.innerHTML =`<video src="${medias[currentIndex].src}" alt="${medias[currentIndex].alt}" autoplay="" loop=""></video>`
-      //     console.log("2")
-      // }
-
     }
 
     function nextMediaDisplay () {
