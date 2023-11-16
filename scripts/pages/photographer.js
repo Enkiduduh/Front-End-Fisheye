@@ -16,6 +16,17 @@ let mediaList = [];
 const closeModalBtn = document.getElementById("close-modal");
 const modal = document.getElementById("contact_modal");
 
+
+// const closeModalContact = document.getElementById("close_modal_contact_icon");
+// closeModalContact.addEventListener("keydown", function (event) {
+//   if (modal.style.display === "block"){
+//     if (event.key == "Escape"){
+//       closeModal()
+//     }
+//   }
+// })
+
+
 function sumArray (array) {
   const sum = (accumulator, value) => accumulator + value;
   const initialValue = 0;
@@ -27,58 +38,93 @@ function sumArray (array) {
 const photographersIdArray = [243,930,82,527,925,195];
 
 let sumResult = 0;
+class Media {
+  constructor(data) {
+      this.id = data.id;
+      this.photographerId = data.photographerId;
+      this.title = data.title;
+      this.likes = data.likes || 0;
+      this.date = data.date;
+  }
+
+  display() {
+      console.log(`Title: ${this.title}, Likes: ${this.likes}`);
+  }
+}
+
+class ImageMedia extends Media {
+  constructor(data) {
+      super(data);
+      this.image = data.image;
+  }
+
+  display() {
+      super.display();
+      console.log(`Type: Image, Image Path: ${this.image}`);
+  }
+}
+
+class VideoMedia extends Media {
+  constructor(data) {
+      super(data);
+      this.video = data.video;
+  }
+
+  display() {
+      super.display();
+      console.log(`Type: Video, Video Path: ${this.video}`);
+  }
+}
+
 async function getMedia() {
   let response = await fetch('data/photographers.json');
   if (!response.ok) {
-    alert("HTTP-Error: " + response.statut);
+      alert("HTTP-Error: " + response.status);
   } else {
       let data = await response.json();
       let media = data.media;
-      mediaList = [...media];
+      mediaList = media.map(mediaData => {
+          if (mediaData.image) {
+              return new ImageMedia(mediaData);
+          } else if (mediaData.video) {
+              return new VideoMedia(mediaData);
+          }
+      });
       return {
-          media: [...media]
-        };
-      }
-    }
-
-    function immediateMedia () {
-    getMedia()
-    .then(() => {
-      console.log(mediaList);
-      console.log(mediaList[2].title);
-
-    })
+          media: [...mediaList]
+      };
   }
-  immediateMedia()
+}
+
 
 function checkPhotographerId () {
-    for (let i = 0; i< photographersIdArray.length; i++) {
-        if (photographersIdArray[i] == id) {
-          const photographerName = photographersData[i].name;
-          const photographerCity = photographersData[i].city;
-          const photographerCountry = photographersData[i].country;
-          const photographerTagline = photographersData[i].tagline;
-          const photographerPrice = photographersData[i].price;
-          const waiting = document.getElementById("waiting");
-          const photographerPortrait = `assets/photographers/${photographersData[i].portrait}`;
-          console.log(`id:${id}`)
-          console.log(photographersData[i].name)
-          const mainHeadId = document.getElementById ("main-head");
-          mainHeadId.innerHTML =
-          `<div class="photograph-header">
-          <div class="info-photographer">
-          <h1>${photographersData[i].name}</h1>
-          <p class="p1">${photographersData[i].city}, ${photographersData[i].country}</p>
-          <p class="p2">${photographersData[i].tagline}</p>
-          </div>
-          <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-          <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait of the artist Tracy Galindo">
-          </div>`;
-          waiting.textContent=photographerName;
-          getMedia();
-        }
+  for (let i = 0; i< photographersIdArray.length; i++) {
+      if (photographersIdArray[i] == id) {
+        const photographerName = photographersData[i].name;
+        const photographerCity = photographersData[i].city;
+        const photographerCountry = photographersData[i].country;
+        const photographerTagline = photographersData[i].tagline;
+        const photographerPrice = photographersData[i].price;
+        const waiting = document.getElementById("waiting");
+        const photographerPortrait = `assets/photographers/${photographersData[i].portrait}`;
+        console.log(`id:${id}`)
+        console.log(photographersData[i].name)
+        const mainHeadId = document.getElementById ("main-head");
+        mainHeadId.innerHTML =
+        `<div class="photograph-header">
+            <div class="info-photographer">
+                <h1>${photographersData[i].name}</h1>
+                <p class="p1">${photographersData[i].city}, ${photographersData[i].country}</p>
+                <p class="p2">${photographersData[i].tagline}</p>
+            </div>
+            <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+            <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait de ${photographersData[i].name}">
+        </div>`;
+        waiting.textContent=photographerName;
+        getMedia();
       }
     }
+  }
 
     checkPhotographerId()
 
@@ -97,69 +143,68 @@ function checkPhotographerId () {
         if (photographersIdArray[x] == id) {
           let mediaFiltered = media.filter(m => m.photographerId == id)
           const photographer_gallery = document.getElementById ("photographer_gallery");
-          for (let i = 0; i < mediaFiltered.length; i++) {
+          mediaFiltered.forEach(mediaItem => {
             const galleryCard = document.createElement("div");
             galleryCard.classList.add("gallery_card");
-            if (mediaFiltered[i].image) {
-              galleryCard.innerHTML =
-              `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
-              <div class="card_info">
-              <h3>${mediaFiltered[i].title}</h3>
-              <div>
-              <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
-              <i class="fa-regular fa-heart hearticon"></i>
-              </div>
-              </div>`;
-            } else if (mediaFiltered[i].video) {
-              galleryCard.innerHTML =
-              `<video class="gallery_media video_media" src="assets/images/${photographersData[x].name}/${mediaFiltered[i].video}" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
-              </video>
-              <div class="card_info">
-              <h3>${mediaFiltered[i].title}</h3>
-              <div>
-              <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
-              <i class="fa-regular fa-heart hearticon"></i>
-              </div>
-              </div>`;
+
+            if (mediaItem instanceof ImageMedia) {
+                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaItem.title}">
+                    <div class="card_info">
+                        <h3>${mediaItem.title}</h3>
+                        <div>
+                            <span data-like="${mediaItem.likes}">${mediaItem.likes}</span>
+                            <i class="fa-regular fa-heart hearticon" aria-label="likes"></i>
+                        </div>
+                    </div>`;
+            } else if (mediaItem instanceof VideoMedia) {
+                galleryCard.innerHTML = `<video class="gallery_media video_media" src="assets/images/${photographersData[x].name}/${mediaItem.video}" alt="assets/images/${photographersData[x].name}/${mediaItem.title}"></video>
+                    <div class="card_info">
+                        <h3>${mediaItem.title}</h3>
+                        <div>
+                            <span data-like="${mediaItem.likes}">${mediaItem.likes}</span>
+                            <i class="fa-regular fa-heart hearticon" aria-label="likes"></i>
+                        </div>
+                    </div>`;
             }
+
             photographer_gallery.appendChild(galleryCard);
             const heartIcon = galleryCard.querySelector(".hearticon");
             const likesSpan = galleryCard.querySelector("span");
-            const mediaItem = mediaFiltered[i];
             mediaItem.hasLiked = false;
-            sommeNbLikes.push(mediaFiltered[i].likes);
             addOrRemoveALike (heartIcon, mediaItem);
             displayImgInModal ()
+            // const mediaItem = mediaFiltered[i];
+            sommeNbLikes.push(mediaItem.likes);
 
-          }
+          })
           sumArray(sommeNbLikes);
           const nbLikes = document.getElementById("nb_likes");
           nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
           const price = document.getElementById("price");
           price.innerHTML =`${photographersData[x].price}€ / jour`;
 
-          function addOrRemoveALike (heartIcon, media) {
+          function addOrRemoveALike (heartIcon, mediaItem) {
             heartIcon.addEventListener("click", function(){
-               if (!media.hasLiked) {
+               if (!mediaItem.hasLiked) {
                   console.log("Entree addALike")
-                  media.likes++; // Augmente de 1 les likes
-                  media.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
+                  mediaItem.likes++; // Augmente de 1 les likes
+                  mediaItem.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
                   heartIcon.classList.add("hearticon_liked");
                   heartIcon.classList.add("fa-solid");
                   heartIcon.classList.remove("fa-regular");
-                  updateLikes(heartIcon, media.likes); // Met à jour l'affichage du nombre de likes
+                  updateLikes(heartIcon, mediaItem.likes); // Met à jour l'affichage du nombre de likes
                   sumResult += 1;
                   console.log(sumResult)
                   nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
-                } else if (media.hasLiked) {
+                } else if (mediaItem.hasLiked) {
                     console.log("Entree removeALike")
-                    media.likes--; // Suppression du like présent si déjà ajouté
-                    media.hasLiked = false; //
+                    mediaItem.likes--; // Suppression du like présent si déjà ajouté
+                    mediaItem.hasLiked = false; //
                     heartIcon.classList.remove("hearticon_liked");
                     heartIcon.classList.add("hearticon");
                     heartIcon.classList.remove("fa-solid");
                     heartIcon.classList.add("fa-regular");
-                    updateLikes(heartIcon, media.likes); //
+                    updateLikes(heartIcon, mediaItem.likes); //
                     sumResult -= 1;
                     console.log(sumResult)
                     nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
@@ -217,9 +262,6 @@ function checkPhotographerId () {
     }
     displayMediaWithPhotographerId()
 
-
-
-
     function displayImgInModal () {
       const medias = document.querySelectorAll(".gallery_media");
       const modal = document.getElementById("display_modal");
@@ -262,7 +304,7 @@ function checkPhotographerId () {
         const match = medias[currentIndex].alt.match(regExp);
       if (match) {
         const dernierePartie = match[1];
-        caption.innerHTML = dernierePartie;
+        caption.textContent = dernierePartie;
       }
         modalImage.style.display = "block";
         modalVideo.style.display = "none";
@@ -362,81 +404,3 @@ function checkPhotographerId () {
           console.log(`Message : ${this.message}`);
         }
     }
-
-
-
-//   class Media {
-//     constructor(data, photographerName) {
-//       this.id = data.id;
-//       this.photographerId = data.photographerId;
-//       this.title = data.title;
-//       this.likes = data.likes;
-//       this.date = data.date;
-//       this.price = data.price;
-//       this.photographerName = photographerName;
-//     }
-
-//     display() {
-//       // Logique commune pour l'affichage des médias
-//       console.log(`Media ID: ${this.id}`);
-//       console.log(`Photographer: ${this.photographerName}`);
-//       console.log(`Title: ${this.title}`);
-//       console.log(`Likes: ${this.likes}`);
-//       console.log(`Date: ${this.date}`);
-//       console.log(`Price: ${this.price}`);
-//     }
-//   }
-
-//  // Classe spécifique pour les photos
-// class Photo extends Media {
-//   constructor(data, photographerName) {
-//     super(data, photographerName);
-//     this.image = data.image;
-//   }
-
-//   display() {
-//     super.display(); // Appeler la méthode display de la classe parent
-//     // Logique spécifique pour l'affichage des photos
-//     console.log(`Image: ${this.image}`);
-//   }
-// }
-
-//   // Classe spécifique pour les vidéos
-// class Video extends Media {
-//   constructor(data, photographerName) {
-//     super(data, photographerName);
-//     this.video = data.video;
-//   }
-
-//   display() {
-//     super.display(); // Appeler la méthode display de la classe parent
-//     // Logique spécifique pour l'affichage des vidéos
-//     console.log(`Video: ${this.video}`);
-//   }
-// }
-
-// // Factory pour créer les objets média en fonction de leur type
-// class MediaFactory {
-//   static createMedia(data, photographerName) {
-//     if (data.image) {
-//       return new Photo(data, photographerName);
-//     } else if (data.video) {
-//       return new Video(data, photographerName);
-//     }
-//     throw new Error("Invalid media type");
-//   }
-// }
-// const mediaData = {
-//   id: 1,
-//   photographerId: 123,
-//   title: "Beautiful Sunset",
-//   likes: 42,
-//   date: "2022-01-01",
-//   price: 50,
-//   image: "sunset.jpg"
-// };
-
-// const photographerName = "John Doe";
-
-// const media = MediaFactory.createMedia(mediaData, photographerName);
-// media.display();

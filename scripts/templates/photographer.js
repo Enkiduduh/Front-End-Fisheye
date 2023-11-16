@@ -8,7 +8,7 @@ function photographerTemplate(data) {
         article.setAttribute("role", `Vignette du photographe ${name}`);
         const img = document.createElement( 'img' );
         img.setAttribute("src", picture);
-        img.setAttribute("alt", `portrait of the artist ${name}`);
+        img.setAttribute("alt", `portrait de ${name}`);
         img.setAttribute("id", id);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;

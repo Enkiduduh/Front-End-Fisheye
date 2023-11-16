@@ -160,6 +160,10 @@ h1 {
 .photographer_section article .card-link {
   text-align: center;
   text-decoration: none;
+  transition: all 330ms ease-in-out;
+}
+.photographer_section article .card-link:hover {
+  transform: scale(1.1);
 }
 .photographer_section article h2 {
   color: #D3573C;
@@ -190,9 +194,6 @@ h1 {
   -o-object-fit: cover;
      object-fit: cover;
   margin: 0 auto;
-}
-.photographer_section article img:hover {
-  box-shadow: rgb(237, 60, 60) 0px 0px 25px;
 }
 
 .photograph-header {
