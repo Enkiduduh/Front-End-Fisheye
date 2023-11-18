@@ -53,9 +53,9 @@
             <h2>Contactez-moi</h2>
             <div id="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark" id="close_modal_contact_icon"></i></div>
           </div>
-          <h2 id="waiting"></h2>
+          <h2 id="photographer-name-contact"></h2>
         </div>
-				<form id="myForm" method="get" onclick="return validate()">
+				<form id="myForm" method="get" >
 					<div>
 						<label for="firstname">Prénom</label>
 						<input id="firstname" name="firstname"/>
@@ -66,7 +66,7 @@
             <label for="message">Votre message</label>
             <textarea id="message" name="message" rows="4" cols="70"></textarea>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="contact_button" id="validate-contact-button" onclick="return validate()">Envoyer</button>
 				</form>
 			</div>
 		</div>

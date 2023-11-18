@@ -3,7 +3,7 @@ let photographerList = [];
 
 
   async function getPhotographers() {
-    let response = await fetch('data/photographers.json');
+    let response = await fetch("data/photographers.json");
 
     if (!response.ok) {
       alert("HTTP-Error: " + response.status);
@@ -45,7 +45,7 @@ let photographerList = [];
       const { photographers } = await getPhotographers();
       photographers.forEach((photographer) => {
         const photographerId = photographer.id;
-      })
+      });
     }
     verif();
 
@@ -77,3 +77,5 @@ let photographerList = [];
     localStorage.setItem("dataPhotographers", dataStringified);
   }
   storageData();
+
+

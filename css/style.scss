@@ -390,6 +390,7 @@ form {
   align-items: flex-start;
 }
 
+
 form label {
   color: #312E2E;
   font-size: 20px;
@@ -398,13 +399,13 @@ form label {
 form div {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 400px;
   align-items: self-start;
   margin-bottom: 26px;
 }
 
 form input {
-  width: 100%;
+  width: 394px;
   height: 40px;
   border: none;
   border-radius: 5px;
@@ -412,11 +413,12 @@ form input {
 }
 textarea {
   resize: none;
-  width: 100%;
+  width: 394px;
   border-radius: 7px;
   border: transparent;
   height:100px;
   outline: none;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 1100px) {

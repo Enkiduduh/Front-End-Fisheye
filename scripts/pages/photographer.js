@@ -3,7 +3,7 @@
 
 
 const params = new URL(document.location).searchParams;
-const id = parseInt(params.get("id"))   //phId
+const id = parseInt(params.get("id"));   //phId
 
 const photographersRecall = localStorage.getItem("dataPhotographers");
 const photographersData = JSON.parse(photographersRecall);
@@ -77,7 +77,7 @@ class VideoMedia extends Media {
 }
 
 async function getMedia() {
-  let response = await fetch('data/photographers.json');
+  let response = await fetch("data/photographers.json");
   if (!response.ok) {
       alert("HTTP-Error: " + response.status);
   } else {
@@ -105,10 +105,10 @@ function checkPhotographerId () {
         const photographerCountry = photographersData[i].country;
         const photographerTagline = photographersData[i].tagline;
         const photographerPrice = photographersData[i].price;
-        const waiting = document.getElementById("waiting");
+        const contactName = document.getElementById("photographer-name-contact");
         const photographerPortrait = `assets/photographers/${photographersData[i].portrait}`;
-        console.log(`id:${id}`)
-        console.log(photographersData[i].name)
+        console.log(`id:${id}`);
+        console.log(photographersData[i].name);
         const mainHeadId = document.getElementById ("main-head");
         mainHeadId.innerHTML =
         `<div class="photograph-header">
@@ -120,13 +120,13 @@ function checkPhotographerId () {
             <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
             <img src="assets/photographers/${photographersData[i].portrait}" alt="portrait de ${photographersData[i].name}">
         </div>`;
-        waiting.textContent=photographerName;
+        contactName.textContent=photographerName;
         getMedia();
       }
     }
   }
 
-    checkPhotographerId()
+    checkPhotographerId();
 
 
 
@@ -141,7 +141,7 @@ function checkPhotographerId () {
 
       for (let x = 0; x< photographersIdArray.length; x++) {
         if (photographersIdArray[x] == id) {
-          let mediaFiltered = media.filter(m => m.photographerId == id)
+          let mediaFiltered = media.filter(m => m.photographerId == id);
           const photographer_gallery = document.getElementById ("photographer_gallery");
           mediaFiltered.forEach(mediaItem => {
             const galleryCard = document.createElement("div");
@@ -172,11 +172,11 @@ function checkPhotographerId () {
             const likesSpan = galleryCard.querySelector("span");
             mediaItem.hasLiked = false;
             addOrRemoveALike (heartIcon, mediaItem);
-            displayImgInModal ()
+            displayImgInModal ();
             // const mediaItem = mediaFiltered[i];
             sommeNbLikes.push(mediaItem.likes);
 
-          })
+          });
           sumArray(sommeNbLikes);
           const nbLikes = document.getElementById("nb_likes");
           nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
@@ -186,7 +186,7 @@ function checkPhotographerId () {
           function addOrRemoveALike (heartIcon, mediaItem) {
             heartIcon.addEventListener("click", function(){
                if (!mediaItem.hasLiked) {
-                  console.log("Entree addALike")
+                  console.log("Entree addALike");
                   mediaItem.likes++; // Augmente de 1 les likes
                   mediaItem.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
                   heartIcon.classList.add("hearticon_liked");
@@ -194,10 +194,10 @@ function checkPhotographerId () {
                   heartIcon.classList.remove("fa-regular");
                   updateLikes(heartIcon, mediaItem.likes); // Met à jour l'affichage du nombre de likes
                   sumResult += 1;
-                  console.log(sumResult)
+                  console.log(sumResult);
                   nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                 } else if (mediaItem.hasLiked) {
-                    console.log("Entree removeALike")
+                    console.log("Entree removeALike");
                     mediaItem.likes--; // Suppression du like présent si déjà ajouté
                     mediaItem.hasLiked = false; //
                     heartIcon.classList.remove("hearticon_liked");
@@ -206,7 +206,7 @@ function checkPhotographerId () {
                     heartIcon.classList.add("fa-regular");
                     updateLikes(heartIcon, mediaItem.likes); //
                     sumResult -= 1;
-                    console.log(sumResult)
+                    console.log(sumResult);
                     nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                 }
             });
@@ -221,8 +221,8 @@ function checkPhotographerId () {
             } else if (selectedFilter === "date") {
               // Triez par date (remplacez par la logique appropriée)
               mediaFiltered.sort((a, b) => {
-                const dateA = new Date((a.date))
-                const dateB = new Date((b.date))
+                const dateA = new Date((a.date));
+                const dateB = new Date((b.date));
                 return dateA - dateB;
               });
 
@@ -255,12 +255,12 @@ function checkPhotographerId () {
               mediaItem.hasLiked = false;
               sommeNbLikes.push(mediaFiltered[i].likes);
               addOrRemoveALike (heartIcon, mediaItem);
-              displayImgInModal ()
+              displayImgInModal ();
             }
-        })
+        });
       }}
     }
-    displayMediaWithPhotographerId()
+    displayMediaWithPhotographerId();
 
     function displayImgInModal () {
       const medias = document.querySelectorAll(".gallery_media");
@@ -310,12 +310,12 @@ function checkPhotographerId () {
         modalVideo.style.display = "none";
         modalImage.src = chemin;// Afficher l'image cliquée dans la modal
       } else if (matchVideo) {
-          const videoElement = document.querySelector('.video_media'); // Sélectionnez votre élément vidéo par une classe ou une autre méthode
-          const title = videoElement.getAttribute('alt');
-          console.log(title)
+          const videoElement = document.querySelector(".video_media"); // Sélectionnez votre élément vidéo par une classe ou une autre méthode
+          const title = videoElement.getAttribute("alt");
+          console.log(title);
           const lastPartTitle = title.match(regExp);
           const titleVideo = lastPartTitle[1];
-          console.log(titleVideo)
+          console.log(titleVideo);
 
           caption.innerHTML = titleVideo;
           modalImage.style.display = "none";
@@ -323,7 +323,7 @@ function checkPhotographerId () {
           modalVideo.src = chemin;
           modalVideo.autoplay = true;
           modalVideo.loop = true;
-          console.log(medias[currentIndex])
+          console.log(medias[currentIndex]);
         }
     }
 
@@ -363,31 +363,16 @@ function checkPhotographerId () {
   }
 
     const form = document.getElementById("myForm");
-    console.log(form);
-
     const firstname = document.getElementById("firstname");
     const lastname = document.getElementById("lastname");
     const email = document.getElementById("email");
     const message = document.getElementById("message");
+    const modalContact = document.querySelector("display_modal");
 
-    console.log(form.firstname)
-
-    form.firstname.addEventListener("input", function(){
-        console.log("bonjour")
-    })
-    form.lastname.addEventListener("input", function(){
-      console.log("bonjour")
-    })
-    form.email.addEventListener("input", function(){
-      console.log("bonjour")
-    })
-    form.message.addEventListener("input", function(){
-
-    })
 
     function validate(){
-      console.log(new Message(`${form.firstname.value}`,`${form.lastname.value}`,`${form.email.value}`,`${form.message.value}`))
-      return false
+      console.log(new Message(`${form.firstname.value}`,`${form.lastname.value}`,`${form.email.value}`,`${form.message.value}`));
+      return false;
     }
 
     class Message {
@@ -404,3 +389,29 @@ function checkPhotographerId () {
           console.log(`Message : ${this.message}`);
         }
     }
+    const modalContactPhotographer = document.querySelector(".modal");
+    modalContactPhotographer.addEventListener("keydown", function (e) {
+      if (e.key === "Tab") {
+          const focusableElements = document.querySelectorAll("#firstname, #lastname, #email, #message, #validate-contact-button");
+          console.log(focusableElements);
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+
+          if (e.shiftKey) {
+              // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+              if (document.activeElement === firstElement) {
+                  e.preventDefault();
+                  lastElement.focus();
+              }
+          } else {
+              // Sinon, dirige le focus vers le premier élément
+              if (document.activeElement === lastElement) {
+                  e.preventDefault();
+                  firstElement.focus();
+              }
+          }
+      }
+        if (e.key === "Escape") {
+          closeModal();
+      }
+  });
