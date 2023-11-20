@@ -148,21 +148,21 @@ function checkPhotographerId () {
             galleryCard.classList.add("gallery_card");
 
             if (mediaItem instanceof ImageMedia) {
-                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaItem.title}">
+                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" tabindex=0 class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaItem.title}">
                     <div class="card_info">
                         <h3>${mediaItem.title}</h3>
                         <div>
                             <span data-like="${mediaItem.likes}">${mediaItem.likes}</span>
-                            <i class="fa-regular fa-heart hearticon" aria-label="likes"></i>
+                            <i class="fa-regular fa-heart hearticon" tabindex=0 aria-label="likes"></i>
                         </div>
                     </div>`;
             } else if (mediaItem instanceof VideoMedia) {
-                galleryCard.innerHTML = `<video class="gallery_media video_media" src="assets/images/${photographersData[x].name}/${mediaItem.video}" alt="assets/images/${photographersData[x].name}/${mediaItem.title}"></video>
+                galleryCard.innerHTML = `<video class="gallery_media video_media" tabindex=0 src="assets/images/${photographersData[x].name}/${mediaItem.video}" alt="assets/images/${photographersData[x].name}/${mediaItem.title}"></video>
                     <div class="card_info">
                         <h3>${mediaItem.title}</h3>
                         <div>
                             <span data-like="${mediaItem.likes}">${mediaItem.likes}</span>
-                            <i class="fa-regular fa-heart hearticon" aria-label="likes"></i>
+                            <i class="fa-regular fa-heart hearticon" tabindex=0 aria-label="likes"></i>
                         </div>
                     </div>`;
             }
@@ -171,6 +171,8 @@ function checkPhotographerId () {
             const heartIcon = galleryCard.querySelector(".hearticon");
             const likesSpan = galleryCard.querySelector("span");
             mediaItem.hasLiked = false;
+
+
             addOrRemoveALike (heartIcon, mediaItem);
             displayImgInModal ();
             // const mediaItem = mediaFiltered[i];
@@ -210,6 +212,37 @@ function checkPhotographerId () {
                     nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
                 }
             });
+
+            heartIcon.addEventListener("keydown", function (event) {
+              if (event.key === "Enter") {
+                  // Ajoutez ici la logique pour gérer le clic sur la touche "Enter"
+                  console.log("Cœur cliqué avec la touche Enter");
+                  if (!mediaItem.hasLiked) {
+                    console.log("Entree addALike");
+                    mediaItem.likes++; // Augmente de 1 les likes
+                    mediaItem.hasLiked = true; // On set à True pour bloquer à 1 seul like ajouté
+                    heartIcon.classList.add("hearticon_liked");
+                    heartIcon.classList.add("fa-solid");
+                    heartIcon.classList.remove("fa-regular");
+                    updateLikes(heartIcon, mediaItem.likes); // Met à jour l'affichage du nombre de likes
+                    sumResult += 1;
+                    console.log(sumResult);
+                    nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
+                  } else if (mediaItem.hasLiked) {
+                      console.log("Entree removeALike");
+                      mediaItem.likes--; // Suppression du like présent si déjà ajouté
+                      mediaItem.hasLiked = false; //
+                      heartIcon.classList.remove("hearticon_liked");
+                      heartIcon.classList.add("hearticon");
+                      heartIcon.classList.remove("fa-solid");
+                      heartIcon.classList.add("fa-regular");
+                      updateLikes(heartIcon, mediaItem.likes); //
+                      sumResult -= 1;
+                      console.log(sumResult);
+                      nbLikes.innerHTML =`${sumResult} <i class="fa-solid fa-heart"></i>`;
+                  }
+              }
+          });
           }
 
           const filterMedia = document.getElementById("filter");
@@ -235,32 +268,59 @@ function checkPhotographerId () {
             photographer_gallery.innerHTML = "";
 
             // Réaffichez les éléments triés
-            for (let i = 0; i < mediaFiltered.length; i++) {
-              // Créez et ajoutez les éléments triés au photographe_gallery
+            mediaFiltered.forEach(mediaItem => {
               const galleryCard = document.createElement("div");
               galleryCard.classList.add("gallery_card");
-              galleryCard.innerHTML =
-              `<img src="assets/images/${photographersData[x].name}/${mediaFiltered[i].image}"  class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaFiltered[i].title}">
-              <div class="card_info">
-              <h3>${mediaFiltered[i].title}</h3>
-              <div>
-              <span data-like="${mediaFiltered[i].likes}">${mediaFiltered[i].likes}</span>
-              <i class="fa-solid fa-heart hearticon"></i>
-              </div>
-              </div>`;
+
+              if (mediaItem instanceof ImageMedia) {
+                  galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" tabindex=0 class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaItem.title}">
+                      <div class="card_info">
+                          <h3>${mediaItem.title}</h3>
+                          <div>
+                              <span data-like="${mediaItem.likes}">${mediaItem.likes}</span>
+                              <i class="fa-regular fa-heart hearticon" tabindex=0 aria-label="likes"></i>
+                          </div>
+                      </div>`;
+              } else if (mediaItem instanceof VideoMedia) {
+                  galleryCard.innerHTML = `<video class="gallery_media video_media" tabindex=0 src="assets/images/${photographersData[x].name}/${mediaItem.video}" alt="assets/images/${photographersData[x].name}/${mediaItem.title}"></video>
+                      <div class="card_info">
+                          <h3>${mediaItem.title}</h3>
+                          <div>
+                              <span data-like="${mediaItem.likes}">${mediaItem.likes}</span>
+                              <i class="fa-regular fa-heart hearticon" tabindex=0 aria-label="likes"></i>
+                          </div>
+                      </div>`;
+              }
+
               photographer_gallery.appendChild(galleryCard);
               const heartIcon = galleryCard.querySelector(".hearticon");
               const likesSpan = galleryCard.querySelector("span");
-              const mediaItem = mediaFiltered[i];
               mediaItem.hasLiked = false;
-              sommeNbLikes.push(mediaFiltered[i].likes);
               addOrRemoveALike (heartIcon, mediaItem);
               displayImgInModal ();
-            }
+              sommeNbLikes.push(mediaItem.likes);
+
+            });
         });
       }}
+
+      const mediasToOpen = document.querySelectorAll(".gallery_media");
+      mediasToOpen.forEach(media => {
+        media.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            displayImgInModal ();
+            console.log("poueeh");
+
+          }
+        });
+      });
+
+
     }
     displayMediaWithPhotographerId();
+
+
+
 
     function displayImgInModal () {
       const medias = document.querySelectorAll(".gallery_media");
@@ -288,6 +348,16 @@ function checkPhotographerId () {
         leftArrow.addEventListener("click", previousMediaDisplay); // Afficher l'image précédente dans la modal
         rightArrow.addEventListener("click", nextMediaDisplay); // Afficher l'image suivante dans la modal
     });
+      media.addEventListener("keydown", function(event){
+        if (event.key === "Enter") {
+        modal.style.display = "block"; // Afficher la modal
+        modalBg.style.display = "block";
+        document.body.classList.add("no-scroll");
+        currentIndex = index; // Mettre à jour l'index de l'image actuelle
+        currentMediaDisplay();
+        }
+    });
+
   });
     function currentMediaDisplay() {
 
