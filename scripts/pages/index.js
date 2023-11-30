@@ -78,4 +78,24 @@ let photographerList = [];
   }
   storageData();
 
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") {
+        const focusableElements = document.querySelectorAll(".card-link");
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
 
+        if (e.shiftKey) {
+            // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Sinon, dirige le focus vers le premier élément
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    }
+});

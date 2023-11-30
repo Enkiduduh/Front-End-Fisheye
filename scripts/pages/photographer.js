@@ -148,7 +148,7 @@ function checkPhotographerId () {
             galleryCard.classList.add("gallery_card");
 
             if (mediaItem instanceof ImageMedia) {
-                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" tabindex=0 class="gallery_media" alt="assets/images/${photographersData[x].name}/${mediaItem.title}">
+                galleryCard.innerHTML = `<img src="assets/images/${photographersData[x].name}/${mediaItem.image}" tabindex=0 class="gallery_media" alt="${mediaItem.title}">
                     <div class="card_info">
                         <h3>${mediaItem.title}</h3>
                         <div>
@@ -442,6 +442,7 @@ function checkPhotographerId () {
 
     function validate(){
       console.log(new Message(`${form.firstname.value}`,`${form.lastname.value}`,`${form.email.value}`,`${form.message.value}`));
+      form.reset();
       return false;
     }
 
@@ -463,7 +464,6 @@ function checkPhotographerId () {
     modalContactPhotographer.addEventListener("keydown", function (e) {
       if (e.key === "Tab") {
           const focusableElements = document.querySelectorAll("#firstname, #lastname, #email, #message, #validate-contact-button");
-          console.log(focusableElements);
           const firstElement = focusableElements[0];
           const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -485,3 +485,61 @@ function checkPhotographerId () {
           closeModal();
       }
   });
+
+
+  modalContactPhotographer.addEventListener("keydown", function (e) {
+    if (e.key === "Tab") {
+        const focusableElements = document.querySelectorAll("#logo-redirect, .contact_button, #filter, .gallery_media, .hearticon");
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+            // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+            if (document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Sinon, dirige le focus vers le premier élément
+            if (document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    }
+});
+
+//   document.addEventListener("keydown", function (e) {
+//     if (e.key === "Tab") {
+//         const focusableElements = document.querySelectorAll("#logo-redirect, .contact_button, #filter,  .gallery_media, .hearticon");
+//         const firstElement = focusableElements[0];
+//         const lastElement = focusableElements[focusableElements.length - 1];
+//         if (document.activeElement === lastElement && !e.shiftKey) {
+//             e.preventDefault();
+//             focusableElements[0].focus();
+//             console.log("Etape 1 - A");
+//         } else if (document.activeElement === focusableElements[0] && e.shiftKey) {
+//             e.preventDefault();
+//             lastElement.focus();
+//             console.log("Etape 1 - B");
+//           } else {
+//             if (e.shiftKey) {
+//                 // Si la touche Maj est enfoncée, dirige le focus vers le dernier élément
+//                 if (document.activeElement === firstElement) {
+//                     e.preventDefault();
+//                     lastElement.focus();
+//                     console.log("Etape 2 - A");
+
+//                 }
+//             } else {
+//             // Sinon, dirige le focus vers le premier élément
+//                 if (document.activeElement === lastElement) {
+//                     e.preventDefault();
+//                     firstElement.focus();
+//                     console.log("Etape 2 - B");
+
+//                 }
+//             }
+//         }
+//       }
+// });
