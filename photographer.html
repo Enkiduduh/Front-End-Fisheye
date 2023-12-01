@@ -19,7 +19,7 @@
       <div class="photograph-header">
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
-      
+
     </div>
     <div id="filter-containter">
       <label for="filter" id="label-filter">Trier par</label>
@@ -58,12 +58,16 @@
 					<div>
 						<label for="firstname">Prénom</label>
 						<input id="firstname" name="firstname">
+            <small id="errorfirst"></small>
             <label for="lastname">Nom</label>
 						<input id="lastname" name="lastname">
+            <small id="errorlast"></small>
             <label for="email">Email</label>
 						<input id="email" name="email">
+            <small id="erroremail"></small>
             <label for="message">Votre message</label>
             <textarea id="message" name="message" rows="4" cols="70"></textarea>
+            <small id="errormessage"></small>
 					</div>
           <button class="contact_button" id="validate-contact-button" onclick="return validate()">Envoyer</button>
 				</form>
