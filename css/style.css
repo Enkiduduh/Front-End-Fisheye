@@ -88,10 +88,6 @@ h1 {
   display: flex;
   align-items: center;
 }
-#filter-containter #filter:hover {
-  color: black;
-  background: #D3573C;
-}
 #filter-containter #filter .filter-display-none {
   display: none;
 }
@@ -99,7 +95,6 @@ h1 {
   border-radius: 5px;
   display: flex;
   align-items: center;
-  background: #901C1C;
   font-size: 20px;
   font-weight: bold;
   color: white;

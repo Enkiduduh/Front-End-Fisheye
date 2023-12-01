@@ -96,10 +96,6 @@ justify-content: space-between;
     border-radius: 5px;
     display: flex;
     align-items: center;
-    &:hover {
-      color: black;
-      background:$secondary_color_1_bg;
-    }
 
     .filter-display-none {
       display: none;
@@ -108,7 +104,7 @@ justify-content: space-between;
       border-radius: 5px;
       display: flex;
       align-items: center;
-      background: $primary_color_1_bg;
+      // background: $primary_color_1_bg;
       font-size: 20px;
       font-weight: bold;
       color: white;
@@ -447,12 +443,7 @@ textarea {
         transform: scale(1.05);
       }
     }
-    // video {
-    //   width: 280px;
-    //   height: 280px;
-    //   border-radius: 5px;
-    //   object-fit: cover;
-    // }
+    
     .gallery_card {
       width: 100%;
       margin: 0 auto;
