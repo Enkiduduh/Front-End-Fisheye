@@ -555,7 +555,7 @@ const valideLast = function(inputLast) {
   else {
     lastname.classList.add("invalid-input");
     lastname.classList.remove("valid-input");
-    error.innerText="Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+    error.innerText="Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     isValidLast = 1;
     verifModalContact();
   }
@@ -603,7 +603,7 @@ const valideMessage = function(inputMessage) {
   } else {
     message.classList.add("invalid-input");
     message.classList.remove("valid-input");
-    error.innerText="Vous devez saisir un email valide. ex: xxx@xx.xx";
+    error.innerText="Vous devez saisir au moins 3 lettres.";
     isValidMessage = 1;
     verifModalContact();
   }
